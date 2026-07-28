@@ -1,0 +1,36 @@
+/* Semantic color aliases — built on the raw brand/neutral scales in
+   fig-tokens.css (extracted verbatim from Figma Variables).
+   The brand hue is a high-energy chartreuse/lime. Neutrals are a true
+   grey scale. Exact hex values come from the Colour System frame. */
+
+:root {
+  /* ---- Brand (chartreuse) ---- */
+  --color-brand: var(--brand-400);          /* #DAE586 — hero brand color */
+  --color-brand-strong: var(--brand-500);   /* #C7D74E — the accent used on chips/active */
+  --color-brand-deep: var(--brand-700);     /* #8D9B25 — brand text on light */
+
+  /* ---- Text ---- */
+  --text-primary: rgb(17,24,39);    /* near-black slate — headings, body */
+  --text-secondary: rgb(75,85,99);  /* descriptions, supporting copy */
+  --text-tertiary: rgb(107,114,128);/* footer / de-emphasised labels */
+  --text-muted: rgb(156,163,175);   /* captions, meta, © lines */
+  --text-on-brand: rgb(17,24,39);   /* dark text on the light brand fill */
+  --text-inverse: rgb(255,255,255); /* text on dark surfaces */
+  --text-brand: rgb(26,140,51);     /* semantic green used for positive/link accents */
+
+  /* ---- Surfaces ---- */
+  --surface-page: rgb(255,255,255);
+  --surface-subtle: rgb(249,250,251);
+  --surface-muted: rgb(243,244,246);   /* code-token chips */
+  --surface-card: rgb(255,255,255);
+  --surface-dark: rgb(20,20,20);       /* dark-mode container */
+  --surface-darker: rgb(26,26,26);
+
+  /* ---- Borders / dividers ---- */
+  --border-subtle: rgb(229,231,235);
+  --border-default: rgb(209,213,219);
+  --border-strong: rgb(55,65,81);      /* dividers on dark surfaces */
+
+  /* ---- Semantic status ---- */
+  --color-danger: rgb(239,68,68);
+}

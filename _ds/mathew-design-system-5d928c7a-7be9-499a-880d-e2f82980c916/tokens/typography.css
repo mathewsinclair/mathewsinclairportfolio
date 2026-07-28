@@ -1,0 +1,53 @@
+/* Typography — two coexisting systems:
+   1. EDITORIAL type scale (the portfolio content): Playfair Display for
+      headings, Crimson Text for body. Values transcribed verbatim from
+      the Typography System frame.
+   2. PRODUCT / UI type: Geist (titles, labels), Inter (descriptions),
+      Geist Mono (code, hex, meta). Used for the documentation chrome
+      and any app/tooling surface. */
+
+:root {
+  /* Families */
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-serif: 'Crimson Text', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Weights */
+  --fw-regular: 400; /* @kind other */
+  --fw-medium: 500; /* @kind other */
+  --fw-semibold: 600; /* @kind other */
+  --fw-bold: 700; /* @kind other */
+
+  /* Editorial scale — size / line-height / tracking */
+  --h1-size: 56px;  --h1-line: 64px;  --h1-track: 1.5px;
+  --h2-size: 42px;  --h2-line: 50px;  --h2-track: 1px;
+  --h3-size: 32px;  --h3-line: 40px;  --h3-track: 0.5px;
+  --h4-size: 24px;  --h4-line: 32px;  --h4-track: 0px; /* @kind spacing */
+  --h5-size: 20px;  --h5-line: 28px;  --h5-track: 0px; /* @kind spacing */
+  --body-lg-size: 20px; --body-lg-line: 32px;
+  --body-size: 18px;    --body-line: 30px;
+  --body-sm-size: 16px; --body-sm-line: 26px;
+  --caption-size: 14px; --caption-line: 22px; --caption-track: 0.5px;
+  --overline-size: 12px; --overline-line: 18px; --overline-track: 3px;
+}
+
+/* ---- Editorial specimen classes ---- */
+.ds-h1 { font-family: var(--font-display); font-weight: var(--fw-bold); font-size: var(--h1-size); line-height: var(--h1-line); letter-spacing: var(--h1-track); color: var(--text-primary); }
+.ds-h2 { font-family: var(--font-display); font-weight: var(--fw-bold); font-size: var(--h2-size); line-height: var(--h2-line); letter-spacing: var(--h2-track); color: var(--text-primary); }
+.ds-h3 { font-family: var(--font-display); font-weight: var(--fw-bold); font-size: var(--h3-size); line-height: var(--h3-line); letter-spacing: var(--h3-track); color: var(--text-primary); }
+.ds-h4 { font-family: var(--font-display); font-weight: var(--fw-bold); font-size: var(--h4-size); line-height: var(--h4-line); color: var(--text-primary); }
+.ds-h5 { font-family: var(--font-display); font-weight: var(--fw-bold); font-size: var(--h5-size); line-height: var(--h5-line); color: var(--text-primary); }
+.ds-body-lg { font-family: var(--font-serif); font-weight: var(--fw-regular); font-size: var(--body-lg-size); line-height: var(--body-lg-line); color: var(--text-secondary); }
+.ds-body { font-family: var(--font-serif); font-weight: var(--fw-regular); font-size: var(--body-size); line-height: var(--body-line); color: var(--text-secondary); }
+.ds-body-sm { font-family: var(--font-serif); font-weight: var(--fw-regular); font-size: var(--body-sm-size); line-height: var(--body-sm-line); color: var(--text-secondary); }
+.ds-caption { font-family: var(--font-serif); font-weight: var(--fw-regular); font-size: var(--caption-size); line-height: var(--caption-line); letter-spacing: var(--caption-track); color: var(--text-muted); }
+.ds-overline { font-family: var(--font-serif); font-weight: var(--fw-bold); font-size: var(--overline-size); line-height: var(--overline-line); letter-spacing: var(--overline-track); text-transform: uppercase; color: var(--text-tertiary); }
+
+/* ---- Product / UI classes ---- */
+.ds-ui-title { font-family: var(--font-sans); font-weight: var(--fw-bold); font-size: 28px; line-height: 1; letter-spacing: -0.5px; color: var(--text-primary); }
+.ds-ui-section { font-family: var(--font-sans); font-weight: var(--fw-semibold); font-size: 24px; line-height: 1; letter-spacing: -0.5px; color: var(--text-primary); }
+.ds-ui-label { font-family: var(--font-sans); font-weight: var(--fw-medium); font-size: 14px; line-height: 1; color: var(--text-primary); }
+.ds-ui-body { font-family: var(--font-ui); font-weight: var(--fw-regular); font-size: 14px; line-height: 1.4; color: var(--text-secondary); }
+.ds-mono { font-family: var(--font-mono); font-weight: var(--fw-regular); font-size: 12px; line-height: 1; color: var(--text-secondary); }

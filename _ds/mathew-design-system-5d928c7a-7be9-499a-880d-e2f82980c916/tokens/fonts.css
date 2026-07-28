@@ -1,0 +1,6 @@
+/* Webfonts — all five families are available on Google Fonts, so the
+   real families are used (no substitution). If you need self-hosted
+   binaries, swap these @import lines for @font-face rules pointing at
+   the .woff2 files. */
+
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&display=swap');

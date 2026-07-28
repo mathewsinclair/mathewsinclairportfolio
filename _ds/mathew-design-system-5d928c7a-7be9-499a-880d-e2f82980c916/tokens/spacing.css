@@ -1,0 +1,31 @@
+/* Spacing, radii, and shadows — values observed directly in the Figma
+   frames (auto-layout gaps, corner radii, effect styles). The system
+   uses a loose 4px-derived rhythm but keeps its exact figures. */
+
+:root {
+  /* ---- Spacing (auto-layout gaps / paddings seen in-file) ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 40px;
+  --space-8: 48px;
+  --space-9: 60px;
+  --space-10: 80px;   /* page frame padding */
+
+  /* ---- Radii ---- */
+  --radius-sm: 4px;   /* code chips, small tiles */
+  --radius-md: 6px;   /* header logo tile */
+  --radius-lg: 8px;   /* color swatches */
+  --radius-xl: 12px;  /* dark container / cards */
+
+  /* ---- Shadows ---- */
+  /* The signature dark-mode effect: a neon chartreuse glow using the
+     brand-500 accent at 60% opacity. */
+  --glow-brand: 0 0 20px 0 rgba(199,215,78,0.6);
+  --glow-brand-soft: 0 0 12px 0 rgba(199,215,78,0.4);
+  --shadow-card: 0 1px 2px 0 rgba(17,24,39,0.05);
+  --shadow-inset-border: inset 0 0 0 1px var(--border-subtle);
+}
