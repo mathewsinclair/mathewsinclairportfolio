@@ -553,5 +553,14 @@ footer{max-width:46rem;margin:0 auto;padding:2rem 1.5rem 3rem;display:flex;justi
   window.addEventListener('scroll',update,{passive:true});update();
 })();
 </script>
+<script>
+(function(){
+  var b=document.querySelector('.bar .brand'); if(!b) return;
+  b.setAttribute('href','../index.html');
+  b.addEventListener('click',function(e){
+    if(window.parent && window.parent!==window){ e.preventDefault(); window.parent.postMessage('portfolio:home','*'); }
+  });
+})();
+</script>
 </body>
 </html>
