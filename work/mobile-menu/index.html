@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hamburger Menu Redesign · Mathew Sinclair</title>
+<meta name="description" content="Redesigning DFYNE's mobile navigation to make collections make sense — and diversify revenue while doing it.">
+<link rel="stylesheet" href="../../css/tokens.css">
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/components.css">
+<link rel="stylesheet" href="../../css/case-study.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="site-header">
+  <div class="site-header__bar">
+    <a class="site-logo" href="/">mathew<span aria-hidden="true">.</span>sinclair</a>
+    <nav class="site-nav" aria-label="Primary">
+      <button class="menu-toggle" aria-expanded="false" aria-controls="primary-nav-list" aria-label="Open menu">
+        <svg width="18" height="14" viewBox="0 0 18 14" fill="none" aria-hidden="true"><path d="M0 1h18M0 7h18M0 13h18" stroke="currentColor" stroke-width="2"/></svg>
+      </button>
+      <ul class="site-nav__list" id="primary-nav-list">
+        <li><a href="/work/" aria-current="page">Work</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="../../uploads/Mathew_Sinclair_CV.pdf" download>Résumé</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="nav-backdrop"></div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+    <p style="padding-top: var(--space-6);"><a class="text-link" href="/work/">← Back to all work</a></p>
+
+    <header class="cs-hero">
+      <p class="eyebrow">DFYNE · Mobile Navigation</p>
+      <h1>Fixing the thing that <em>"pissed me off"</em></h1>
+      <p class="cs-hero__dek">Redesigning DFYNE's mobile navigation to make collections make sense — and diversify revenue while doing it.</p>
+      <ul class="pills cs-hero__pills">
+        <li class="pill">Role · Product / UX Designer</li>
+        <li class="pill">Platform · Mobile web (Shopify)</li>
+        <li class="pill">Tools · Clarity, Figma, guerrilla interviews</li>
+        <li class="pill">Design → launch → 7-day read</li>
+      </ul>
+      <div class="cs-hero__stats">
+        <div>
+          <div class="cs-hero__stat-value">+311%</div>
+          <div class="cs-hero__stat-label">Vision clicks, International</div>
+        </div>
+        <div>
+          <div class="cs-hero__stat-value">+124%</div>
+          <div class="cs-hero__stat-label">Vision clicks, USA</div>
+        </div>
+        <div>
+          <div class="cs-hero__stat-value">39–52%</div>
+          <div class="cs-hero__stat-label">Drop in search usage, International</div>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <nav class="cs-nav" aria-label="Case study sections">
+    <div class="wrap">
+      <ul class="cs-nav__list">
+        <li><a href="#brief">Brief</a></li>
+        <li><a href="#problem">Problem</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#insight">Insight</a></li>
+        <li><a href="#solution">Solution</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#next">Next</a></li>
+        <li><a href="#desktop-concept">Desktop concept</a></li>
+        <li><a href="#learned">What I learned</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="wrap">
+
+    <section class="cs-section" id="brief" aria-labelledby="brief-h">
+      <p class="eyebrow">01 · The brief</p>
+      <h2 id="brief-h" class="visually-hidden">The brief</h2>
+      <div class="prose">
+        <p><em>"Fix something that pisses you off."</em> That was the whole assignment. No spec, no backlog ticket, no stakeholder wishlist — just permission to find a real problem and own it end to end. With almost no qualitative research budget and Microsoft Clarity as my only quantitative lens, I had to pick a problem I could actually prove and actually move.</p>
+        <p>So I picked the first thing that pissed me off as a new person on the site: <strong>the mobile menu.</strong></p>
+      </div>
+    </section>
+
+    <section class="cs-section" id="problem" aria-labelledby="problem-h">
+      <p class="eyebrow">02 · The problem</p>
+      <h2 id="problem-h">Two different things, styled identically.</h2>
+      <div class="prose">
+        <p>Opening the DFYNE mobile menu as a first-time visitor was disorienting. Two fundamentally different things were stacked on top of each other and styled identically:</p>
+      </div>
+      <ul class="prose" style="padding-left: 1.25rem; margin-top: var(--space-4); list-style: disc;">
+        <li style="margin-bottom: var(--space-2);"><strong>Categories</strong> — <em>what</em> the product is: Shorts, Sports Bras, Hoodies, Joggers, Tracksuits.</li>
+        <li><strong>Collections</strong> — <em>who it's for and why it exists</em>: Impact, Vision, Defy, Dynamic, Signature, Revive, Origin, plus editor drops like The Hannah Pearson Edit.</li>
+      </ul>
+      <div class="prose" style="margin-top: var(--space-4);">
+        <p>Same font size. Same weight. Same spacing. Same layout. A flat wall of 40+ links per gender, repeated again for Mens, all in one long scroll. Nothing told you that a category and a collection are completely different things — one is a product type, the other is a brand story.</p>
+      </div>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card__label">01</div>
+          <div class="card__title">Cognitive overload</div>
+          <p class="card__body">A flat hierarchy of 40+ links, no chunking, no progressive disclosure. Everything at once.</p>
+        </div>
+        <div class="card">
+          <div class="card__label">02</div>
+          <div class="card__title">No collection identity</div>
+          <p class="card__body">Collections are DFYNE's editorial soul but read as just more line items. Nothing signalled <em>these all do something different.</em></p>
+        </div>
+        <div class="card">
+          <div class="card__label">03</div>
+          <div class="card__title">Duplicated structure</div>
+          <p class="card__body">Mens repeated the same flat pattern in the same scroll, doubling the load and making it easy to lose your place.</p>
+        </div>
+      </div>
+
+      <figure class="cs-figure">
+        <div class="cs-figure-grid">
+          <div>
+            <img src="../../mockups/audit-annotated.png" alt="Annotated design audit of the original DFYNE mobile menu">
+          </div>
+          <div>
+            <img src="../../mockups/audit-heatmap.png" alt="Microsoft Clarity heatmap of the original DFYNE mobile menu">
+          </div>
+        </div>
+        <figcaption>How I audited what we had — my annotated teardown next to the Microsoft Clarity heatmap.</figcaption>
+      </figure>
+
+      <div class="callout">
+        <p class="eyebrow">The business problem hiding inside the UX problem</p>
+        <p>One collection — <strong>Impact</strong> — was doing the heavy lifting. Best seller, viral on social, and carrying a hugely disproportionate share of revenue. Everything else sat in its shadow. That's fragile: if new users can't understand collections, they default to the one name they already know from social. The menu wasn't just confusing — it was quietly concentrating revenue into a single line and leaving the rest of the range undiscovered.</p>
+        <p><strong>The opportunity:</strong> help <em>new</em> users understand what collections are, while giving <em>Impact fans</em> a reason to explore the others — diversifying revenue and building brand understanding at once.</p>
+      </div>
+
+      <h3>Turning the opportunity into objectives</h3>
+      <div class="prose">
+        <p>With limited stakeholder direction and thin research data, no one was going to hand me a success metric. So I set my own — three explicit business objectives to design against and later measure in Clarity:</p>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card__label">Objective 01</div>
+          <div class="card__title">Clarify the value of collections</div>
+          <p class="card__body">Make it obvious — without a line of explanation — that a collection is a distinct world worth exploring, not just another link in a list.</p>
+        </div>
+        <div class="card">
+          <div class="card__label">Objective 02</div>
+          <div class="card__title">Balance emphasis across collections</div>
+          <p class="card__body">Stop the menu funnelling everyone toward Impact. Give the full range a fair shot at attention — and at revenue — so no single collection appears over-dominant.</p>
+        </div>
+        <div class="card">
+          <div class="card__label">Objective 03</div>
+          <div class="card__title">Make differences immediately scannable</div>
+          <p class="card__body">A user should perceive "these are all different" in one glance — before reading a single word — so choosing feels effortless, not like homework.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cs-section" id="research" aria-labelledby="research-h">
+      <p class="eyebrow">03 · The research</p>
+      <h2 id="research-h">Working with what I had.</h2>
+      <div class="prose">
+        <p>No budget for a formal study didn't mean no research. It meant faster, scrappier research.</p>
+      </div>
+      <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));">
+        <div>
+          <h3 style="margin-top: 0;">Quantitative — Microsoft Clarity</h3>
+          <p class="card__body" style="font-size: var(--text-base);">Real behaviour: where people clicked, where they didn't, how they moved through the menu. Two signals stood out — reliance on search as an escape hatch from the menu, and engagement heavily concentrated on Impact with a long tail of barely-touched collections.</p>
+        </div>
+        <div>
+          <h3 style="margin-top: 0;">Qualitative — guerrilla interviews</h3>
+          <p class="card__body" style="font-size: var(--text-base);">Informal moderated sessions with friends, family, and new colleagues. One question did most of the work.</p>
+        </div>
+      </div>
+
+      <figure class="cs-quote">
+        <blockquote>
+          <p>"What is Defy? What is Vision?"</p>
+        </blockquote>
+        <cite>Not one person answered <em>"it's the collection that…"</em> Nobody described them as collections at all.</cite>
+      </figure>
+
+      <div class="prose" style="margin-top: var(--space-8);">
+        <p>That was the validation I needed: the concept of a "collection" simply wasn't landing. If people can't tell you what a thing is, the navigation has already failed — and I was aiming at the right target.</p>
+      </div>
+    </section>
+
+    <section class="cs-section" id="insight" aria-labelledby="insight-h" style="text-align: center;">
+      <p class="eyebrow">04 · The insight</p>
+      <h2 id="insight-h" style="font-family: var(--font-sans); font-weight: 700; font-size: var(--text-3xl); line-height: var(--leading-tight); margin: var(--space-5) auto 0; max-width: 20ch;">The words were fine. The structure was the problem.</h2>
+      <p class="prose" style="margin: var(--space-6) auto 0; text-align: left; max-width: var(--measure-narrow);">Collections had no DNA. Each one — Impact, Vision, Defy, Revive — stands for something distinct, but the menu flattened them into identical text links, so users couldn't perceive difference, let alone act on it. The fix wasn't better copy. It was giving collections a visual system that says: these are not the same, and each is worth exploring.</p>
+    </section>
+
+    <section class="cs-section" id="solution" aria-labelledby="solution-h">
+      <p class="eyebrow">05 · The solution</p>
+      <h2 id="solution-h">Collection pills, pinned to the top.</h2>
+      <div class="prose">
+        <p>I took the long, undifferentiated list of collection names and turned them into <strong>collection "pill" quick-buttons pinned to the top of the menu</strong> — above the category list, in their own visual container.</p>
+      </div>
+
+      <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));">
+        <div class="card">
+          <div class="card__title">1 · Pills create hierarchy</div>
+          <p class="card__body">Pulling collections up into horizontally-arranged quick-buttons instantly separates <em>shop by collection</em> (a brand story) from <em>shop by category</em> (a product type). One glance tells you these are two different ways to shop, and the overload eases because collections become a scannable row instead of a buried 40-link scroll.</p>
+        </div>
+        <div class="card">
+          <div class="card__title">2 · Logos give each collection a DNA</div>
+          <p class="card__body">Each pill carries its own collection mark. That identity is the whole point — it signals, without a word of explanation, that <em>these all do something different.</em> New users learn "collections are distinct worlds" just by looking; Impact loyalists get a visual hook that makes Vision or Defy worth a tap instead of a scroll-past.</p>
+        </div>
+      </div>
+
+      <div class="prose" style="margin-top: var(--space-6);">
+        <p style="font-style: italic; color: var(--color-ink);">This solves both halves of the brief at once — new users finally get <em>what a collection is</em>, and Impact fans get a reason to explore beyond Impact.</p>
+      </div>
+
+      <h3>Differentiating collections</h3>
+      <div class="comparison">
+        <div class="comparison__row">
+          <div class="comparison__label">Lift collections into their own pinned container.</div>
+          <div class="comparison__detail"><em>Common-region &amp; proximity.</em> A bordered "shop by collection" zone above the category list tells users these belong to one class, distinct from categories, before any label is read.</div>
+        </div>
+        <div class="comparison__row">
+          <div class="comparison__label">Give every collection its own logo mark.</div>
+          <div class="comparison__detail"><em>Recognition over recall.</em> A mark is read pre-attentively — users don't have to decode an unfamiliar word like "Defy" to sense it's a distinct thing, so identity lands without explanation.</div>
+        </div>
+        <div class="comparison__row">
+          <div class="comparison__label">Shared pill shape, distinct marks, equal visual weight.</div>
+          <div class="comparison__detail"><em>Balanced emphasis.</em> Identical geometry says "same kind of choice"; the differing marks carry the "each is different" message — and because no pill is bigger or louder, Impact stops visually dominating the range.</div>
+        </div>
+      </div>
+
+      <h3>Reducing decision fatigue</h3>
+      <div class="comparison">
+        <div class="comparison__row">
+          <div class="comparison__label">Chunk a 40-link scroll into one glanceable row.</div>
+          <div class="comparison__detail"><em>Hick's Law.</em> Fewer, well-grouped choices shorten decision time. Progressive disclosure replaces "everything at once" with a scannable set the eye can take in whole.</div>
+        </div>
+        <div class="comparison__row">
+          <div class="comparison__label">Order pills by proven intent, lead with the strongest.</div>
+          <div class="comparison__detail"><em>Serial position &amp; least effort.</em> Surfacing high-intent collections first makes the common path the fast path, so most users decide without deliberating.</div>
+        </div>
+        <div class="comparison__row">
+          <div class="comparison__label">Anchor collections to a fixed, pinned position.</div>
+          <div class="comparison__detail"><em>Spatial memory.</em> A consistent home for collections means a returning user re-finds one by location plus mark — no re-scanning the list, no fresh decision each visit.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cs-section" id="results" aria-labelledby="results-h">
+      <p class="eyebrow">06 · The results — 7-day post-launch</p>
+      <h2 id="results-h">The numbers moved.</h2>
+      <p class="prose" style="color: var(--color-ink-faint);">Measured against the 7 days prior, split by International and USA store — Microsoft Clarity.</p>
+
+      <div class="cs-hero__stats" style="border-top: none; padding-top: 0; margin-top: var(--space-6);">
+        <div>
+          <div class="cs-hero__stat-value">+311%</div>
+          <div class="cs-hero__stat-label">Vision clicks, International (791 → 1,452)</div>
+        </div>
+        <div>
+          <div class="cs-hero__stat-value">+124%</div>
+          <div class="cs-hero__stat-label">Vision clicks, USA (805 → 1,699)</div>
+        </div>
+        <div>
+          <div class="cs-hero__stat-value">+93%</div>
+          <div class="cs-hero__stat-label">Impact clicks, International (1,632 → 3,153)</div>
+        </div>
+        <div>
+          <div class="cs-hero__stat-value">+19%</div>
+          <div class="cs-hero__stat-label">Impact revenue, USA ($807k → $884k)</div>
+        </div>
+      </div>
+
+      <h3>The menu is being used — search is being abandoned</h3>
+      <div class="prose">
+        <p>Users shifted from searching to navigating. Search usage dropped <strong>39–52% internationally</strong> and <strong>29–49% in the USA</strong> — people stopped hunting for an escape hatch because the menu finally made sense. A clean adoption signal in both markets.</p>
+      </div>
+
+      <h3>Engagement surged on the hero collections</h3>
+      <div class="table-wrap">
+        <table class="data-table">
+          <caption class="visually-hidden">Collection click-through change, International vs USA, 7 days post-launch vs 7 days prior</caption>
+          <thead>
+            <tr>
+              <th scope="col">Collection</th>
+              <th scope="col">International</th>
+              <th scope="col">USA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Impact</th>
+              <td data-highlight="true">+93% (1,632 → 3,153)</td>
+              <td data-highlight="true">+85% (2,294 → 3,933)</td>
+            </tr>
+            <tr>
+              <th scope="row">Vision</th>
+              <td data-highlight="true">+311% (791 → 1,452)</td>
+              <td data-highlight="true">+124% (805 → 1,699)</td>
+            </tr>
+            <tr>
+              <th scope="row">Defy</th>
+              <td>+18%</td>
+              <td>+32%</td>
+            </tr>
+            <tr>
+              <th scope="row">Revive</th>
+              <td>No data this window</td>
+              <td>+134% (53 → 124)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="prose" style="margin-top: var(--space-4);"><strong>Vision is the headline</strong> — the collection I most wanted new users to discover jumped +311% internationally and +124% in the USA. Exactly the diversification I designed for. Impact still grew strongly (proof the pills lifted the whole system, not just the underdogs), but the range around it finally started getting attention.</p>
+
+      <h3>Revenue followed engagement</h3>
+      <div class="prose">
+        <p>Impact revenue rose <strong>+8% internationally</strong> and <strong>+19% in the USA</strong> ($807k → $884k) in the post-launch window — confirming a positive correlation between the new navigation and sales, not just clicks.</p>
+      </div>
+
+      <figure class="bar-chart">
+        <div class="bar-chart__header">
+          <span>Collection click uplift, post-launch vs. pre-update</span>
+          <span>Microsoft Clarity</span>
+        </div>
+        <h4 class="visually-hidden">International store</h4>
+        <p class="eyebrow" style="margin-bottom: var(--space-3);">International</p>
+        <div class="bar-chart__group" style="margin-bottom: var(--space-6);">
+          <div class="bar-chart__row">
+            <span class="bar-chart__row-label">Impact</span>
+            <span class="bar-chart__track"><span class="bar-chart__fill" style="width: 30%;"></span></span>
+            <span class="bar-chart__value">+93%</span>
+          </div>
+          <div class="bar-chart__row">
+            <span class="bar-chart__row-label">Vision</span>
+            <span class="bar-chart__track"><span class="bar-chart__fill" style="width: 100%;"></span></span>
+            <span class="bar-chart__value">+311%</span>
+          </div>
+          <div class="bar-chart__row">
+            <span class="bar-chart__row-label">Defy</span>
+            <span class="bar-chart__track"><span class="bar-chart__fill" style="width: 6%;"></span></span>
+            <span class="bar-chart__value">+18%</span>
+          </div>
+          <div class="bar-chart__row">
+            <span class="bar-chart__row-label">Revive</span>
+            <span class="bar-chart__track"><span class="bar-chart__fill" style="width: 0%;"></span></span>
+            <span class="bar-chart__value">No data</span>
+          </div>
+        </div>
+        <h4 class="visually-hidden">USA store</h4>
+        <p class="eyebrow" style="margin-bottom: var(--space-3);">USA</p>
+        <div class="bar-chart__group">
+          <div class="bar-chart__row">
+            <span class="bar-chart__row-label">Impact</span>
+            <span class="bar-chart__track"><span class="bar-chart__fill" style="width: 63%;"></span></span>
+            <span class="bar-chart__value">+85%</span>
+          </div>
+          <div class="bar-chart__row">
+            <span class="bar-chart__row-label">Vision</span>
+            <span class="bar-chart__track"><span class="bar-chart__fill" style="width: 93%;"></span></span>
+            <span class="bar-chart__value">+124%</span>
+          </div>
+          <div class="bar-chart__row">
+            <span class="bar-chart__row-label">Defy</span>
+            <span class="bar-chart__track"><span class="bar-chart__fill" style="width: 24%;"></span></span>
+            <span class="bar-chart__value">+32%</span>
+          </div>
+          <div class="bar-chart__row">
+            <span class="bar-chart__row-label">Revive</span>
+            <span class="bar-chart__track"><span class="bar-chart__fill" style="width: 100%;"></span></span>
+            <span class="bar-chart__value">+134%</span>
+          </div>
+        </div>
+        <figcaption>Click uplift by collection, post-launch vs. pre-update — Microsoft Clarity. Bar length encodes relative uplift within each store; exact figures are given alongside each bar.</figcaption>
+      </figure>
+
+      <figure class="cs-quote">
+        <blockquote>
+          <p>Better navigation → collections understood → engagement spread beyond Impact → revenue up and diversifying.</p>
+        </blockquote>
+      </figure>
+    </section>
+
+    <section class="cs-section" id="next" aria-labelledby="next-h">
+      <p class="eyebrow">07 · What I'd do next</p>
+      <h2 id="next-h">Owning the trade-off.</h2>
+      <div class="prose">
+        <p>A horizontal scroll on the pill row means the collections furthest right can hide off-screen. The data caught it: Women's Signature and The Hannah Pearson Edit sat in that hidden zone and showed flat-to-declining performance internationally (HP Edit down ~42%) while others climbed. The pattern reads as a placement problem, not a product problem.</p>
+      </div>
+      <ol class="steps">
+        <li class="steps__item">
+          <span class="steps__index" aria-hidden="true">1</span>
+          <p class="steps__body"><strong>Reduce the horizontal scroll</strong> so every collection is visible without hunting — and deliberately protect the placement of Signature and HP Edit.</p>
+        </li>
+        <li class="steps__item">
+          <span class="steps__index" aria-hidden="true">2</span>
+          <p class="steps__body"><strong>Optimise pill ordering</strong> — lead with proven engagement (Impact, Vision), but give underperformers better real estate rather than letting them fall off the edge.</p>
+        </li>
+        <li class="steps__item">
+          <span class="steps__index" aria-hidden="true">3</span>
+          <p class="steps__body"><strong>Track the full funnel</strong> — menu click → collection page view → add to bag → purchase, reported separately for International and USA weekly, so the KPI is revenue outcome, not just clicks.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="cs-section" id="desktop-concept" aria-labelledby="desktop-h">
+      <p class="eyebrow">08 · Pushing it further — the desktop concept</p>
+      <h2 id="desktop-h">Where I'd take it if it were mine.</h2>
+      <div class="prose">
+        <p>The mobile pills proved the principle — give each collection its own DNA and people explore it. On desktop I wanted to take that idea all the way: a mega-menu where every collection is a full-bleed editorial banner, its imagery doing the differentiating that a wordmark only hints at on mobile.</p>
+        <p>Categories stay as a clean text list on the left; collections become the visual hero on the right — the clearest possible expression of "these are two different ways to shop."</p>
+      </div>
+
+      <figure class="cs-figure">
+        <img src="../../mockups/desktop-megamenu.png" alt="Desktop mega-menu concept: categories list on the left, full-bleed collection banners on the right">
+        <figcaption>Desktop mega-menu concept — collections as full-bleed editorial banners.</figcaption>
+      </figure>
+
+      <div class="callout">
+        <p class="eyebrow">Why it stayed a concept</p>
+        <p>This one didn't ship. The CEO — the main stakeholder — pushed back, and for a good reason: site performance is a top priority, and a menu carrying this many high-resolution images risked slowing page loads for every visitor. A navigation redesign that hurts Core Web Vitals is a net loss, however striking it looks.</p>
+        <p>I think that trade-off is real, and I'd want to solve <em>for</em> it rather than around it — lazy-loading banners on hover, serving lightweight next-gen formats with tight budgets, or leading with one hero image per collection and revealing the rest on intent. The idea earns its place only if it's fast.</p>
+      </div>
+    </section>
+
+    <section class="cs-section" id="learned" aria-labelledby="learned-h">
+      <p class="eyebrow">09 · What this project taught me</p>
+      <h2 id="learned-h" class="visually-hidden">What this project taught me</h2>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card__title">A vague brief is a gift.</div>
+          <p class="card__body">"Fix what pisses you off" let me find a problem with real business weight instead of a pre-chewed ticket.</p>
+        </div>
+        <div class="card">
+          <div class="card__title">Constraints sharpen research.</div>
+          <p class="card__body">No budget forced me to pair Clarity behaviour data with one devastatingly simple interview question — enough to validate direction with confidence.</p>
+        </div>
+        <div class="card">
+          <div class="card__title">A UX problem is often a business problem in disguise.</div>
+          <p class="card__body">The menu was concentrating revenue into a single collection. Fixing comprehension diversified income.</p>
+        </div>
+        <div class="card">
+          <div class="card__title">Design the smallest thing that changes perception.</div>
+          <p class="card__body">I didn't rewrite the menu — I gave collections a DNA. That one shift moved clicks, revenue, and brand understanding together.</p>
+        </div>
+      </div>
+    </section>
+
+    <nav class="cs-next" aria-label="Related case studies">
+      <p class="eyebrow cs-next__label">Next</p>
+      <div class="cs-next__grid">
+        <a class="cs-next__link" href="/work/cart-redesign/">
+          <span class="cs-next__title">Cart Redesign</span>
+          <p class="cs-next__desc">From forced upsell to impulse buy.</p>
+        </a>
+        <a class="cs-next__link" href="/work/404-page-redesign/">
+          <span class="cs-next__title">404 Page Redesign</span>
+          <p class="cs-next__desc">Turning a dead end into a comeback.</p>
+        </a>
+      </div>
+    </nav>
+
+    <p><a class="btn cs-back" href="/work/">← Back to all work</a></p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <span>© 2026 Mathew Sinclair</span>
+    <ul class="site-footer__links">
+      <li><a href="/work/">Work</a></li>
+      <li><a href="/about/">About</a></li>
+      <li><a href="mailto:mathewsinclair10@hotmail.com">Email</a></li>
+      <li><a href="https://www.linkedin.com/in/mathew-sinclair-391bba34b?utm_source=share_via&amp;utm_content=profile&amp;utm_medium=member_ios" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="../../js/nav.js" defer></script>
+</body>
+</html>

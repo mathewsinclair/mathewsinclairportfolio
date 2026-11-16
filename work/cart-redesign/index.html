@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cart Redesign · Mathew Sinclair</title>
+<meta name="description" content="A phased redesign of DFYNE's cart, from forced upsell to impulse buy, measured against real Shopify conversion data.">
+<link rel="stylesheet" href="../../css/tokens.css">
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/components.css">
+<link rel="stylesheet" href="../../css/case-study.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="site-header">
+  <div class="site-header__bar">
+    <a class="site-logo" href="/">mathew<span aria-hidden="true">.</span>sinclair</a>
+    <nav class="site-nav" aria-label="Primary">
+      <button class="menu-toggle" aria-expanded="false" aria-controls="primary-nav-list" aria-label="Open menu">
+        <svg width="18" height="14" viewBox="0 0 18 14" fill="none" aria-hidden="true"><path d="M0 1h18M0 7h18M0 13h18" stroke="currentColor" stroke-width="2"/></svg>
+      </button>
+      <ul class="site-nav__list" id="primary-nav-list">
+        <li><a href="/work/" aria-current="page">Work</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="../../uploads/Mathew_Sinclair_CV.pdf" download>Résumé</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="nav-backdrop"></div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+    <p style="padding-top: var(--space-6);"><a class="text-link" href="/work/">← Back to all work</a></p>
+
+    <header class="cs-hero">
+      <p class="eyebrow">DFYNE · E-commerce</p>
+      <h1>From forced upsell to impulse buy.</h1>
+      <p class="cs-hero__dek">A phased redesign of DFYNE's cart. Phase 1 introduces a confidence-signal feedback system into the existing cart; Phase 2 will replace the performance-draining third-party upsell app with a native, exploration-friendly feature — measured against real Shopify conversion data.</p>
+      <ul class="pills cs-hero__pills">
+        <li class="pill">Role · Product / UX Designer</li>
+        <li class="pill">Platform · Shopify</li>
+        <li class="pill">Rollout · Phased (Phase 1 of 3)</li>
+        <li class="pill">Status · Living project, in progress</li>
+      </ul>
+      <div class="cs-hero__stats">
+        <div>
+          <div class="cs-hero__stat-value">0.67% → 1.89%</div>
+          <div class="cs-hero__stat-label">Conversion rate, pre- vs post-launch</div>
+        </div>
+        <div>
+          <div class="cs-hero__stat-value">78,431</div>
+          <div class="cs-hero__stat-label">Completed checkouts in the measurement window</div>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <nav class="cs-nav" aria-label="Case study sections">
+    <div class="wrap">
+      <ul class="cs-nav__list">
+        <li><a href="#summary">Summary</a></li>
+        <li><a href="#background">Background</a></li>
+        <li><a href="#discovery">Discovery</a></li>
+        <li><a href="#design-solution">Solution</a></li>
+        <li><a href="#implementation">Implementation</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#learnings">Learnings</a></li>
+        <li><a href="#next">Next steps</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="wrap">
+
+    <section class="cs-section" id="summary" aria-labelledby="summary-h">
+      <p class="eyebrow">Executive summary</p>
+      <h2 id="summary-h" class="visually-hidden">Executive summary</h2>
+      <div class="prose">
+        <p>DFYNE's cart relies on a third-party upsell app that slows the site and pitches products in a way customers find pushy — a double cost of poor performance and poor perception, both dragging on average order value. Phase 1 didn't touch that app yet; it introduced a confidence-signal feedback system (delivery, login, discount status) into the existing cart. A phased rollout de-risked the change: Phase 1 shipped in June 2026, and the first month of Shopify data shows conversion climbing from a <strong>0.67% baseline to 1.89%</strong> — validation to move into Phase 2, which replaces the upsell app itself with a native, exploration-first feature.</p>
+      </div>
+    </section>
+
+    <section class="cs-section" id="background" aria-labelledby="background-h">
+      <p class="eyebrow">Background &amp; challenge</p>
+      <h2 id="background-h">An upsell that worked against the sale.</h2>
+      <div class="prose">
+        <p>The previous upsell mechanism ran through a third-party app bolted onto the cart. It created real performance bottlenecks, and the recommendations it surfaced felt forced rather than helpful — a bad combination that suppressed both site speed and average order value.</p>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card__title">Broken upsell mechanism</div>
+          <p class="card__body">A third-party app degraded site performance and the shopping experience.</p>
+        </div>
+        <div class="card">
+          <div class="card__title">Poor conversion funnel</div>
+          <p class="card__body">No clear exploration of products or purchasing options inside the cart.</p>
+        </div>
+        <div class="card">
+          <div class="card__title">Low AOV</div>
+          <p class="card__body">Forced, unintuitive upsells hurt perception and engagement alike.</p>
+        </div>
+      </div>
+
+      <figure class="cs-figure" style="max-width: 24rem;">
+        <img src="../../mockups/cart-original.png" alt="Original DFYNE cart before redesign">
+        <figcaption>The original cart as briefed — not designed by me, but the starting point for "make this better." Its third-party upsell app is still live today.</figcaption>
+      </figure>
+    </section>
+
+    <section class="cs-section" id="discovery" aria-labelledby="discovery-h">
+      <p class="eyebrow">Discovery &amp; research</p>
+      <h2 id="discovery-h">Four questions users couldn't get answered.</h2>
+      <div class="prose">
+        <p>Direct user feedback — an office survey — surfaced the friction directly: shoppers kept hitting the same unanswered questions at the exact moment they were deciding whether to buy.</p>
+      </div>
+      <div class="card-grid">
+        <div class="card"><p class="card__body" style="font-style: italic; color: var(--color-ink); font-size: var(--text-base);">"Do I qualify for free shipping? How close am I?"</p></div>
+        <div class="card"><p class="card__body" style="font-style: italic; color: var(--color-ink); font-size: var(--text-base);">"Am I logged in? Is my account recognized?"</p></div>
+        <div class="card"><p class="card__body" style="font-style: italic; color: var(--color-ink); font-size: var(--text-base);">"What discounts am I eligible for? Are they applied?"</p></div>
+        <div class="card"><p class="card__body" style="font-style: italic; color: var(--color-ink); font-size: var(--text-base);">"When will this arrive? What are my options?"</p></div>
+      </div>
+
+      <div class="callout">
+        <p class="eyebrow">The key insight</p>
+        <p>Most UK customers already meet the free shipping threshold with a single purchase — the bar is exceptionally low. But the cart never told them that. Surfacing a status they'd already earned turns an invisible fact into a powerful conversion signal: positive reinforcement at the exact moment of the purchase decision, not friction.</p>
+      </div>
+    </section>
+
+    <section class="cs-section" id="design-solution" aria-labelledby="solution-h">
+      <p class="eyebrow">Design solution</p>
+      <h2 id="solution-h">A feedback system, not just a redesign.</h2>
+      <div class="prose">
+        <p>Phase 1 introduced small, contextual feedback moments throughout the cart — each one answering a user question in real time, before it became a reason to abandon. The third-party upsell app itself is still live; replacing it is the work of Phase 2.</p>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card__title">Delivery feedback</div>
+          <p class="card__body">Clear free-shipping qualification status, shipping timeframes, and eligibility — answered before the user has to ask.</p>
+        </div>
+        <div class="card">
+          <div class="card__title">Login status indicator</div>
+          <p class="card__body">A prominent signal confirming the user is authenticated and their account is recognized.</p>
+        </div>
+        <div class="card">
+          <div class="card__title">Active discount display</div>
+          <p class="card__body">Clear labeling of applied discounts and total savings — no more wondering if a code worked.</p>
+        </div>
+      </div>
+      <div class="prose" style="margin-top: var(--space-6);">
+        <p style="font-style: italic; color: var(--color-ink);">Together, these signals build cart confidence — reducing hesitation and abandonment by addressing objections before they're even formed, and building trust through transparency about status, savings, and delivery.</p>
+        <p>The third-party upsell app remains live for now. Phase 2 will replace it with a native upsell feature — giving the sales and product teams far better recommendation and conversion tracking, and removing a third-party script that's currently a drag on page load time.</p>
+      </div>
+    </section>
+
+    <section class="cs-section" id="implementation" aria-labelledby="implementation-h">
+      <p class="eyebrow">Implementation strategy</p>
+      <h2 id="implementation-h">Three phases, de-risked on purpose.</h2>
+      <div class="prose">
+        <p>A phased rollout limited user confusion and let each release earn the next — validating design decisions with real usage before committing further.</p>
+      </div>
+
+      <ol class="timeline">
+        <li class="timeline__item" data-status="done">
+          <p class="timeline__title">Phase 1 — UI redesign &amp; confidence signals <span class="status-badge" data-status="done">Live, June 2026</span></p>
+          <p class="timeline__body">A UI redesign of the cart, adding a delivery-cost signifier (free shipping status) and light personalization via on-screen username display — the phase measured in this study. The third-party upsell app stayed live throughout.</p>
+        </li>
+        <li class="timeline__item" data-status="next">
+          <p class="timeline__title">Phase 2 — Native upsell redesign <span class="status-badge" data-status="next">Next</span></p>
+          <p class="timeline__body">Replaces the third-party upsell app with a native feature — better recommendation and conversion tracking for sales and product, and faster page loads.</p>
+        </li>
+        <li class="timeline__item" data-status="potential">
+          <p class="timeline__title">Phase 3 — Points &amp; loyalty overhaul <span class="status-badge" data-status="potential">Potential</span></p>
+          <p class="timeline__body">Pending stakeholder sign-off: a full overhaul of the logged-in state with a points signifier, integrating the cart with Smile.io's points system.</p>
+        </li>
+      </ol>
+
+      <figure class="cs-figure">
+        <div class="cs-figure-grid">
+          <div><img src="../../mockups/cart-phase1.png" alt="Cart Phase 1 — foundational UX, guest and logged-in active basket"></div>
+          <div><img src="../../mockups/cart-phase2.png" alt="Cart Phase 2 — upsell integration with cross-sell recommendations"></div>
+          <div><img src="../../mockups/cart-phase3.png" alt="Cart Phase 3 — loyalty personalization with points balance and rewards"></div>
+        </div>
+        <figcaption>Phase mockups — foundational cart, upsell integration, loyalty personalization.</figcaption>
+      </figure>
+
+      <div class="callout">
+        <p class="eyebrow">Phase 3 · the ideal future — designed within real constraints</p>
+        <p>Left to pursue Phase 3 without constraint, this is the direction I'd push toward: a full points-and-loyalty overhaul of the logged-in cart, with a points signifier surfaced directly against the basket, a "1000 points = £5 off" reward ladder, and a refer-a-friend prompt built into the same moment.</p>
+        <p>This was designed inside a real business constraint, not just a wishlist: stakeholders believe visible discounts and sale-driven messaging cheapen DFYNE's premium brand positioning. So this concept frames the reward entirely around <em>loyalty and points</em> — never "% off" or "sale" — keeping the incentive but protecting the brand's full-price identity. It's the case I'd bring back to stakeholders, not a shipped decision.</p>
+      </div>
+
+      <h3>Final interaction states — guest and returning customers</h3>
+      <div class="cs-figure-grid" style="grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));">
+        <div><img src="../../mockups/cart-empty-guest.png" alt="Empty cart — guest, Phase 1 &amp; 2"></div>
+        <div><img src="../../mockups/cart-empty-returning.png" alt="Empty cart — returning customer, personalized welcome and jump-back-in"></div>
+        <div><img src="../../mockups/cart-active-guest-notmet.png" alt="Active basket — guest, free delivery threshold not yet met"></div>
+        <div><img src="../../mockups/cart-active-returning-met.png" alt="Active basket — returning customer, free delivery threshold met"></div>
+        <div><img src="../../mockups/cart-active-returning-qualified.png" alt="Active basket — returning customer, qualified for free delivery, personalized welcome"></div>
+      </div>
+      <p class="prose" style="margin-top: var(--space-4); font-size: var(--text-meta); color: var(--color-ink-faint); text-align: center;">Guest and returning-customer paths were designed as distinct states — personalization and delivery-threshold messaging adapt to who's shopping.</p>
+    </section>
+
+    <section class="cs-section" id="results" aria-labelledby="results-h">
+      <p class="eyebrow">Results &amp; impact — Phase 1, first month</p>
+      <h2 id="results-h">Conversion nearly tripled.</h2>
+      <p class="prose" style="color: var(--color-ink-faint);">Shopify analytics, pre-launch baseline (May 3, 2026) vs. the month following Phase 1 launch (June 7 – July 7, 2026).</p>
+
+      <div class="cs-hero__stats" style="border-top: none; padding-top: 0; margin-top: var(--space-6);">
+        <div>
+          <div class="cs-hero__stat-value">0.67%</div>
+          <div class="cs-hero__stat-label">Pre-launch conversion rate (316,001 sessions)</div>
+        </div>
+        <div>
+          <div class="cs-hero__stat-value">1.89%</div>
+          <div class="cs-hero__stat-label">Post-launch conversion rate (month following launch)</div>
+        </div>
+        <div>
+          <div class="cs-hero__stat-value">78,431</div>
+          <div class="cs-hero__stat-label">Completed checkouts in the measurement window</div>
+        </div>
+        <div>
+          <div class="cs-hero__stat-value">163,584</div>
+          <div class="cs-hero__stat-label">Sessions with cart additions</div>
+        </div>
+      </div>
+
+      <h3>The funnel is moving further, not just adding more in</h3>
+      <div class="prose">
+        <p>Of the 237,378 sessions that reached checkout in the measurement window, <strong>78,431 completed</strong> — the redesigned cart isn't just drawing more browsing, it's converting more of that browsing into finished orders.</p>
+      </div>
+
+      <h3>Peak traffic, peak conversion</h3>
+      <div class="prose">
+        <p>The strongest single day in the window was <strong>July 4</strong> — a promotional/holiday spike of 252,861 sessions converting at <strong>6.3%</strong>, nearly 3.3× the period average. The redesigned cart held up, and performed best, under the highest-traffic conditions it will ever see.</p>
+      </div>
+
+      <figure class="bar-chart">
+        <div class="bar-chart__header">
+          <span>Daily conversion rate, selected days</span>
+          <span>Shopify · Jun 7 – Jul 7, 2026</span>
+        </div>
+        <div class="bar-chart__group">
+          <div class="bar-chart__row">
+            <span class="bar-chart__row-label">Baseline</span>
+            <span class="bar-chart__track"><span class="bar-chart__fill" style="width: 11%; background: var(--color-line-strong);"></span></span>
+            <span class="bar-chart__value">0.67%</span>
+          </div>
+          <div class="bar-chart__row">
+            <span class="bar-chart__row-label">Jun 7</span>
+            <span class="bar-chart__track"><span class="bar-chart__fill" style="width: 27%;"></span></span>
+            <span class="bar-chart__value">1.69%</span>
+          </div>
+          <div class="bar-chart__row">
+            <span class="bar-chart__row-label">Jun 18</span>
+            <span class="bar-chart__track"><span class="bar-chart__fill" style="width: 45%;"></span></span>
+            <span class="bar-chart__value">2.82%</span>
+          </div>
+          <div class="bar-chart__row">
+            <span class="bar-chart__row-label">Jul 1</span>
+            <span class="bar-chart__track"><span class="bar-chart__fill" style="width: 34%;"></span></span>
+            <span class="bar-chart__value">2.11%</span>
+          </div>
+          <div class="bar-chart__row">
+            <span class="bar-chart__row-label">Jul 4</span>
+            <span class="bar-chart__track"><span class="bar-chart__fill" style="width: 100%;"></span></span>
+            <span class="bar-chart__value">6.29%</span>
+          </div>
+          <div class="bar-chart__row">
+            <span class="bar-chart__row-label">Jul 5</span>
+            <span class="bar-chart__track"><span class="bar-chart__fill" style="width: 46%;"></span></span>
+            <span class="bar-chart__value">2.90%</span>
+          </div>
+          <div class="bar-chart__row">
+            <span class="bar-chart__row-label">Jul 7</span>
+            <span class="bar-chart__track"><span class="bar-chart__fill" style="width: 19%;"></span></span>
+            <span class="bar-chart__value">1.20%</span>
+          </div>
+        </div>
+        <figcaption>Daily conversion rate, selected days from June 7 – July 7; baseline is the 0.67% pre-launch rate, and July 4 was a promotional spike. Bar length is relative to the 6.29% peak.</figcaption>
+      </figure>
+    </section>
+
+    <section class="cs-section" id="learnings" aria-labelledby="learnings-h">
+      <p class="eyebrow">Key learnings</p>
+      <h2 id="learnings-h" class="visually-hidden">Key learnings</h2>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card__title">Phased launches de-risk big changes.</div>
+          <p class="card__body">Shipping Phase 1 alone already produced a measurable lift — proof the direction is right before Phase 2 and 3 compound it.</p>
+        </div>
+        <div class="card">
+          <div class="card__title">Performance is a UX feature.</div>
+          <p class="card__body">Removing the third-party app's technical debt was itself a UX improvement, independent of any visual redesign.</p>
+        </div>
+        <div class="card">
+          <div class="card__title">Intuitive beats aggressive.</div>
+          <p class="card__body">Upsells that feel like discovery, not pressure, are the goal for Phase 2 — Phase 1 already shows that reducing hesitation and building confidence moves conversion on its own.</p>
+        </div>
+        <div class="card">
+          <div class="card__title">High traffic is the real stress test.</div>
+          <p class="card__body">The July 4 spike validated the new cart under the exact conditions the old app-based version struggled with most.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cs-section" id="next" aria-labelledby="next-steps-h">
+      <p class="eyebrow">Next steps</p>
+      <h2 id="next-steps-h">This is a living project.</h2>
+      <ol class="steps">
+        <li class="steps__item">
+          <span class="steps__index" aria-hidden="true">1</span>
+          <p class="steps__body"><strong>Ship Phase 2</strong> — layer in contextual product recommendation logic, tuned using Phase 1's cart-addition and checkout data.</p>
+        </li>
+        <li class="steps__item">
+          <span class="steps__index" aria-hidden="true">2</span>
+          <p class="steps__body"><strong>Track AOV directly</strong> — add average-order-value reporting alongside conversion so upsell impact is measured, not inferred.</p>
+        </li>
+        <li class="steps__item">
+          <span class="steps__index" aria-hidden="true">3</span>
+          <p class="steps__body"><strong>Scope Phase 3 (potential) loyalty overhaul</strong> — pending stakeholder sign-off, a full redesign of the logged-in state with a points signifier, integrated with Smile.io. Most logged-in loyalty members never see their points balance today; surfacing it extends the same confidence-signal thinking to loyalty engagement and incremental AOV. Not yet implemented — direction to be confirmed with stakeholders.</p>
+        </li>
+      </ol>
+    </section>
+
+    <nav class="cs-next" aria-label="Related case studies">
+      <p class="eyebrow cs-next__label">Next</p>
+      <div class="cs-next__grid">
+        <a class="cs-next__link" href="/work/mobile-menu/">
+          <span class="cs-next__title">Hamburger Menu Redesign</span>
+          <p class="cs-next__desc">Fixing the thing that pissed me off.</p>
+        </a>
+        <a class="cs-next__link" href="/work/404-page-redesign/">
+          <span class="cs-next__title">404 Page Redesign</span>
+          <p class="cs-next__desc">Turning a dead end into a comeback.</p>
+        </a>
+      </div>
+    </nav>
+
+    <p><a class="btn cs-back" href="/work/">← Back to all work</a></p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <span>© 2026 Mathew Sinclair</span>
+    <ul class="site-footer__links">
+      <li><a href="/work/">Work</a></li>
+      <li><a href="/about/">About</a></li>
+      <li><a href="mailto:mathewsinclair10@hotmail.com">Email</a></li>
+      <li><a href="https://www.linkedin.com/in/mathew-sinclair-391bba34b?utm_source=share_via&amp;utm_content=profile&amp;utm_medium=member_ios" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="../../js/nav.js" defer></script>
+</body>
+</html>

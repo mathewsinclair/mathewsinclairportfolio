@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>404 Page Redesign · Mathew Sinclair</title>
+<meta name="description" content="Redesigning DFYNE's 404 page from a stranded moment into a conversion-focused recovery path, completed as a single-day design challenge.">
+<link rel="stylesheet" href="../../css/tokens.css">
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/components.css">
+<link rel="stylesheet" href="../../css/case-study.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="site-header">
+  <div class="site-header__bar">
+    <a class="site-logo" href="/">mathew<span aria-hidden="true">.</span>sinclair</a>
+    <nav class="site-nav" aria-label="Primary">
+      <button class="menu-toggle" aria-expanded="false" aria-controls="primary-nav-list" aria-label="Open menu">
+        <svg width="18" height="14" viewBox="0 0 18 14" fill="none" aria-hidden="true"><path d="M0 1h18M0 7h18M0 13h18" stroke="currentColor" stroke-width="2"/></svg>
+      </button>
+      <ul class="site-nav__list" id="primary-nav-list">
+        <li><a href="/work/" aria-current="page">Work</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="../../uploads/Mathew_Sinclair_CV.pdf" download>Résumé</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="nav-backdrop"></div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+    <p style="padding-top: var(--space-6);"><a class="text-link" href="/work/">← Back to all work</a></p>
+
+    <header class="cs-hero">
+      <p class="eyebrow">DFYNE · Error State</p>
+      <h1>Turning a dead end into a comeback.</h1>
+      <p class="cs-hero__dek">Redesigning DFYNE's 404 page from a stranded moment into a conversion-focused recovery path — completed as a single-day design challenge.</p>
+      <ul class="pills cs-hero__pills">
+        <li class="pill">Role · Product / UX Designer</li>
+        <li class="pill">Scope · Desktop + mobile, full spec</li>
+        <li class="pill">Timeline · 1 day, brief to polished deliverable</li>
+        <li class="pill pill--accent">WCAG 2.1 AA compliant</li>
+      </ul>
+      <div class="cs-hero__stats">
+        <div>
+          <div class="cs-hero__stat-value">8/8</div>
+          <div class="cs-hero__stat-label">Nielsen usability heuristics passed</div>
+        </div>
+        <div>
+          <div class="cs-hero__stat-value">1 day</div>
+          <div class="cs-hero__stat-label">Brief to polished deliverable</div>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <nav class="cs-nav" aria-label="Case study sections">
+    <div class="wrap">
+      <ul class="cs-nav__list">
+        <li><a href="#problem">Problem</a></li>
+        <li><a href="#opportunity">Opportunity</a></li>
+        <li><a href="#strategy">Strategy</a></li>
+        <li><a href="#decisions">Decisions</a></li>
+        <li><a href="#accessibility">Accessibility</a></li>
+        <li><a href="#validation">Validation</a></li>
+        <li><a href="#next">Next steps</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="wrap">
+
+    <section class="cs-section" id="problem" aria-labelledby="problem-h">
+      <p class="eyebrow">01 · The problem</p>
+      <h2 id="problem-h">A dead end, not a detour.</h2>
+      <div class="prose">
+        <p>Users landing on broken or moved URLs hit a minimal error state with no clear way back — a quiet leak of engagement, sessions, and revenue that nobody was measuring.</p>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card__title">Understated messaging</div>
+          <p class="card__body">Users didn't recognize the problem.</p>
+        </div>
+        <div class="card">
+          <div class="card__title">Weak recovery action</div>
+          <p class="card__body">A plain-text link, easily missed.</p>
+        </div>
+        <div class="card">
+          <div class="card__title">Zero contextual help</div>
+          <p class="card__body">No recommendations, no search.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cs-section" id="opportunity" aria-labelledby="opportunity-h" style="text-align: center;">
+      <p class="eyebrow">02 · The opportunity</p>
+      <h2 id="opportunity-h" style="font-family: var(--font-sans); font-weight: 700; font-size: var(--text-3xl); line-height: var(--leading-tight); margin: var(--space-5) auto 0; max-width: 22ch;">Turn the error page into a redemption moment.</h2>
+      <p class="prose" style="margin: var(--space-6) auto 0; text-align: left; max-width: var(--measure-narrow);">A well-crafted 404 retains customers who land on broken URLs, builds brand trust through on-brand, helpful design, and guides users back into the shopping journey — instead of losing them at the door.</p>
+    </section>
+
+    <section class="cs-section" id="strategy" aria-labelledby="strategy-h">
+      <p class="eyebrow">03 · Design strategy</p>
+      <h2 id="strategy-h">Three goals, one page.</h2>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card__label">Goal 01</div>
+          <div class="card__title">Unmistakably on-brand</div>
+          <p class="card__body">Real DFYNE product photography, brand color and type, a tone that's confident and supportive — acknowledges the problem without apologizing for it.</p>
+        </div>
+        <div class="card">
+          <div class="card__label">Goal 02</div>
+          <div class="card__title">Clear navigation paths</div>
+          <p class="card__body">Four high-intent category cards and a prominent "Shop All" CTA tied to real collections — showing what DFYNE sells, not generic links.</p>
+        </div>
+        <div class="card">
+          <div class="card__label">Goal 03</div>
+          <div class="card__title">Enable error reporting</div>
+          <p class="card__body">A lightweight "Report it" link turns customers into collaborators — every submission feeds future link audits.</p>
+        </div>
+      </div>
+
+      <figure class="cs-figure">
+        <img src="../../mockups/404-desktop.png" alt="DFYNE 404 page redesign — desktop, category cards and shop-all CTAs">
+        <figcaption>Desktop: clear headline, four category cards, error-report callout.</figcaption>
+      </figure>
+      <figure class="cs-figure">
+        <div style="position: relative;">
+          <span class="pill pill--accent" style="position: absolute; top: var(--space-3); left: var(--space-3); z-index: 2;">Toast state · after "Report it"</span>
+          <img src="../../mockups/404-desktop-feedback.png" alt="DFYNE 404 page — report-sent confirmation toast overlaid on the same page, desktop">
+        </div>
+        <figcaption>Same page, momentary state: the confirmation toast after a user submits "Report it" — captures broken-link data without blocking recovery.</figcaption>
+      </figure>
+      <figure class="cs-figure">
+        <div class="cs-figure-grid">
+          <div><img src="../../mockups/404-mobile.png" alt="DFYNE 404 page — mobile, category carousel"></div>
+          <div style="position: relative;">
+            <span class="pill pill--accent" style="position: absolute; top: var(--space-2); left: var(--space-2); z-index: 2; font-size: 0.7rem; padding: var(--space-1) var(--space-2);">Toast state</span>
+            <img src="../../mockups/404-mobile-feedback.png" alt="DFYNE 404 page — report-sent confirmation toast overlaid on the same page, mobile">
+          </div>
+        </div>
+        <figcaption>Mobile: single-column carousel, sticky header, 44px+ touch targets.</figcaption>
+      </figure>
+    </section>
+
+    <section class="cs-section" id="decisions" aria-labelledby="decisions-h">
+      <p class="eyebrow">04 · Key design decisions</p>
+      <h2 id="decisions-h">Every choice, a tradeoff owned.</h2>
+      <div class="comparison">
+        <div class="comparison__row">
+          <div>
+            <div class="comparison__label">Product photography over wireframe placeholders</div>
+            <div class="comparison__meta">Tradeoff · asset management vs. speed → photography wins</div>
+          </div>
+          <div class="comparison__detail">Real imagery builds trust; the original audit flagged placeholder recommendations as a friction point. Glossier, Allbirds and Everlane all ship product photography on their error pages — generic 404s belong to utilities, not retail.</div>
+        </div>
+        <div class="comparison__row">
+          <div>
+            <div class="comparison__label">Curated category cards over search-only</div>
+            <div class="comparison__meta">Tradeoff · vertical space vs. minimalism → categories win</div>
+          </div>
+          <div class="comparison__detail">A disoriented user shouldn't face a blank text field. Guided discovery removes friction — Nielsen's research backs users preferring guided paths in error states over self-service search.</div>
+        </div>
+        <div class="comparison__row">
+          <div>
+            <div class="comparison__label">Dual CTAs — Shop and Report — over a single path</div>
+            <div class="comparison__meta">Tradeoff · more UI vs. clean single action → dual path wins</div>
+          </div>
+          <div class="comparison__detail">One page, two jobs: the user gets unstuck, the team gets error data that feeds redirects and link audits. Zappos and Airbnb both use this pattern successfully.</div>
+        </div>
+        <div class="comparison__row">
+          <div>
+            <div class="comparison__label">Full site footer over a minimal footer</div>
+            <div class="comparison__meta">Tradeoff · longer page vs. visual minimalism → full footer wins</div>
+          </div>
+          <div class="comparison__detail">Industry data shows 25–30% of 404 visitors escape via footer navigation. Every major e-commerce site keeps one on error pages — consistency is a trust signal.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cs-section" id="accessibility" aria-labelledby="accessibility-h">
+      <p class="eyebrow">05 · Accessibility &amp; inclusive design</p>
+      <h2 id="accessibility-h">WCAG 2.1 AA, from the ground up.</h2>
+      <div class="prose">
+        <p>Built as a foundational principle, not an afterthought — contrast, keyboard support, touch targets and screen-reader semantics were all part of the initial spec.</p>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card__title">Color contrast</div>
+          <p class="card__body">Headline 21:1, body 7.5:1, "Report it" link 8.6:1 — all clear the 4.5:1 AA minimum, with underlines for color-blind users.</p>
+        </div>
+        <div class="card">
+          <div class="card__title">Keyboard navigation</div>
+          <p class="card__body">Full tab order, visible 2px focus ring, modal closes on Escape, carousel navigable with arrow keys.</p>
+        </div>
+        <div class="card">
+          <div class="card__title">Touch &amp; motion</div>
+          <p class="card__body">44×44px minimum touch targets, swipe + arrows + keyboard on mobile, every animation respects <code>prefers-reduced-motion</code>.</p>
+        </div>
+        <div class="card">
+          <div class="card__title">Screen readers</div>
+          <p class="card__body">Semantic <code>&lt;button&gt;</code>/<code>&lt;h1&gt;</code> markup, ARIA labels, modal marked <code>role="dialog"</code>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cs-section" id="validation" aria-labelledby="validation-h">
+      <p class="eyebrow">06 · Design quality validation</p>
+      <h2 id="validation-h">No traffic data — so the rigor is the proof.</h2>
+      <p class="prose" style="color: var(--color-ink-faint);">With no 404 analytics available, validation leans on heuristic evaluation and competitive benchmarking instead of invented metrics.</p>
+
+      <div class="cs-hero__stats" style="border-top: none; padding-top: 0; margin-top: var(--space-6); margin-bottom: var(--space-8);">
+        <div>
+          <div class="cs-hero__stat-value">8/8</div>
+          <div class="cs-hero__stat-label">Nielsen usability heuristics passed — visibility of status, error recovery, recognition over recall, and more.</div>
+        </div>
+      </div>
+
+      <h3>Competitive benchmark</h3>
+      <div class="table-wrap">
+        <table class="data-table">
+          <caption class="visually-hidden">Competitive benchmark of 404 page quality: DFYNE, Glossier, Stripe</caption>
+          <thead>
+            <tr>
+              <th scope="col">Aspect</th>
+              <th scope="col">DFYNE</th>
+              <th scope="col">Glossier</th>
+              <th scope="col">Stripe</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Product imagery</th>
+              <td>
+                <ul class="status-list"><li class="status-list__item" data-state="pass"><span class="status-list__icon" aria-hidden="true"></span><span class="status-list__text">Present</span></li></ul>
+              </td>
+              <td>
+                <ul class="status-list"><li class="status-list__item" data-state="pass"><span class="status-list__icon" aria-hidden="true"></span><span class="status-list__text">Present</span></li></ul>
+              </td>
+              <td>
+                <ul class="status-list"><li class="status-list__item" data-state="fail"><span class="status-list__icon" aria-hidden="true"></span><span class="status-list__text">Not applicable (B2B)</span></li></ul>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Category navigation</th>
+              <td data-highlight="true">4 categories</td>
+              <td>
+                <ul class="status-list"><li class="status-list__item" data-state="pass"><span class="status-list__icon" aria-hidden="true"></span><span class="status-list__text">Present</span></li></ul>
+              </td>
+              <td>Minimal</td>
+            </tr>
+            <tr>
+              <th scope="row">Accessibility (WCAG)</th>
+              <td data-highlight="true">AA compliant</td>
+              <td>Partial</td>
+              <td data-highlight="true">Compliant</td>
+            </tr>
+            <tr>
+              <th scope="row">Mobile experience</th>
+              <td>Carousel + touch</td>
+              <td>
+                <ul class="status-list"><li class="status-list__item" data-state="pass"><span class="status-list__icon" aria-hidden="true"></span><span class="status-list__text">Present</span></li></ul>
+              </td>
+              <td>Responsive</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="prose" style="margin-top: var(--space-4);">
+        <p><strong>Verdict:</strong> the redesign meets or exceeds retail 404 standards — in good company with the interaction patterns competitors already use.</p>
+      </div>
+    </section>
+
+    <section class="cs-section" id="next" aria-labelledby="next-h">
+      <p class="eyebrow">07 · Next steps</p>
+      <h2 id="next-h">From spec to shipped.</h2>
+      <ol class="steps">
+        <li class="steps__item">
+          <span class="steps__index" aria-hidden="true">1</span>
+          <p class="steps__body"><strong>Usability testing</strong> — 5–8 sessions to confirm category cards read as intuitive and reduce bounce intent.</p>
+        </li>
+        <li class="steps__item">
+          <span class="steps__index" aria-hidden="true">2</span>
+          <p class="steps__body"><strong>Staged rollout</strong> — ship to 10–25% of 404 traffic first, watch for bugs before full launch.</p>
+        </li>
+        <li class="steps__item">
+          <span class="steps__index" aria-hidden="true">3</span>
+          <p class="steps__body"><strong>Monitor error reports</strong> — turn "Report it" submissions into fixed redirects and cleaner link audits.</p>
+        </li>
+      </ol>
+    </section>
+
+    <nav class="cs-next" aria-label="Related case studies">
+      <p class="eyebrow cs-next__label">Next</p>
+      <div class="cs-next__grid">
+        <a class="cs-next__link" href="/work/mobile-menu/">
+          <span class="cs-next__title">Hamburger Menu Redesign</span>
+          <p class="cs-next__desc">Fixing the thing that pissed me off.</p>
+        </a>
+        <a class="cs-next__link" href="/work/cart-redesign/">
+          <span class="cs-next__title">Cart Redesign</span>
+          <p class="cs-next__desc">From forced upsell to impulse buy.</p>
+        </a>
+      </div>
+    </nav>
+
+    <p><a class="btn cs-back" href="/work/">← Back to all work</a></p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <span>© 2026 Mathew Sinclair</span>
+    <ul class="site-footer__links">
+      <li><a href="/work/">Work</a></li>
+      <li><a href="/about/">About</a></li>
+      <li><a href="mailto:mathewsinclair10@hotmail.com">Email</a></li>
+      <li><a href="https://www.linkedin.com/in/mathew-sinclair-391bba34b?utm_source=share_via&amp;utm_content=profile&amp;utm_medium=member_ios" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="../../js/nav.js" defer></script>
+</body>
+</html>

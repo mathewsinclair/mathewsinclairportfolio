@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accessibility Rework · Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Geist+Mono:wght@400;500&family=Geist:wght@400;500;600&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand-200:#EDF1CB; --brand-300:#DFE7A3; --brand-400:#DAE586; --brand-500:#C7D74E; --brand-600:#B4C62C; --brand-700:#8D9B25; --brand-900:#424814; --brand-1000:#1D2009;
+  --page:#0e0e0e; --card:#171714; --card-2:#1c1c18; --line:rgba(218,229,134,.14); --line-soft:rgba(255,255,255,.07);
+  --text:#F5F5F0; --text-2:#C9C9C2; --text-3:#9C9C94; --danger:#F08A7E;
+  --font-display:'Playfair Display',Georgia,serif; --font-serif:'Crimson Text',Georgia,serif;
+  --font-sans:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; --font-mono:'Geist Mono',ui-monospace,Menlo,monospace;
+  --r-md:6px; --r-lg:8px; --r-xl:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--page);color:var(--text-2);font-family:var(--font-serif);font-size:1.1875rem;line-height:1.65;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(60rem 40rem at 50% -10%,rgba(199,215,78,.10),transparent 60%),radial-gradient(40rem 30rem at 100% 60%,rgba(199,215,78,.04),transparent 70%);background-attachment:fixed}
+a{color:var(--brand-400)}
+:focus-visible{outline:2px solid var(--brand-400);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:1rem;top:-4rem;background:var(--brand-400);color:#111827;padding:.6rem 1rem;border-radius:var(--r-md);font-family:var(--font-sans);font-weight:600;z-index:20}
+.skip:focus{top:1rem}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* top bar */
+.bar{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;background:rgba(14,14,14,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-soft)}
+.bar .brand{font-family:var(--font-display);font-weight:700;color:var(--text);font-size:1rem;text-decoration:none}
+.bar .crumb{font-family:var(--font-mono);font-size:.75rem;color:var(--text-3)}
+.bar .dot{width:10px;height:10px;border-radius:50%;background:var(--brand-400);box-shadow:0 0 14px var(--brand-500)}
+
+main{max-width:46rem;margin:0 auto;padding:0 1.5rem 6rem}
+.wide{max-width:60rem;margin-left:50%;transform:translateX(-50%);width:calc(100vw - 3rem)}
+
+/* type */
+.eyebrow{font-family:var(--font-serif);font-weight:600;font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--brand-400);margin-bottom:1rem;display:flex;gap:.75rem;align-items:center}
+.eyebrow .num{font-family:var(--font-mono);letter-spacing:0;color:var(--text-3);font-weight:400}
+h1{font-family:var(--font-display);color:var(--text);font-weight:700;font-size:clamp(2.6rem,7vw,4.4rem);line-height:1.02;letter-spacing:-.01em;margin-bottom:1.5rem}
+h1 .stop{color:var(--brand-400)}
+h2{font-family:var(--font-display);color:var(--text);font-weight:700;font-size:clamp(1.8rem,4vw,2.4rem);line-height:1.12;margin-bottom:1.25rem}
+h3{font-family:var(--font-display);color:var(--text);font-weight:700;font-size:1.25rem;line-height:1.25;margin-bottom:.5rem}
+p+p{margin-top:1rem}
+.lede{font-size:1.3rem;line-height:1.6;color:var(--text-2);max-width:38rem}
+strong{color:var(--text);font-weight:600}
+
+/* hero */
+.hero{padding:5.5rem 0 3rem}
+.pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2rem;list-style:none}
+.pill{font-family:var(--font-mono);font-size:.74rem;color:var(--text-2);border:1px solid var(--line);border-radius:999px;padding:.35rem .8rem;background:rgba(255,255,255,.015)}
+.pill b{color:var(--text-3);font-weight:400}
+.tag{display:inline-block;font-family:var(--font-mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.04em;color:#111827;background:var(--brand-400);border-radius:999px;padding:.15rem .55rem;font-weight:500}
+.tag.ghost{background:transparent;color:var(--brand-400);border:1px solid var(--brand-700)}
+
+[data-group]{scroll-margin-top:4rem}section{scroll-margin-top:4rem;padding:3.5rem 0;border-top:1px solid var(--line-soft)}
+
+/* overview nav */
+.overview{list-style:none;max-width:28rem;border-top:1px solid var(--line-soft)}
+.overview>li{display:grid;grid-template-columns:9rem 1fr;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--line-soft)}
+.overview .cat{font-family:var(--font-mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--brand-400);text-decoration:none;padding-top:.2rem}
+.overview ul{list-style:none;border-left:1px solid var(--line);padding-left:1rem}
+.overview li li+li{margin-top:.35rem}
+.overview li li a{font-family:var(--font-sans);font-size:.9rem;color:var(--text-3);text-decoration:none}
+.overview a:hover{color:var(--text)}
+.bar nav ul{display:flex;gap:1.5rem;list-style:none}
+.bar nav a{font-family:var(--font-mono);font-size:.74rem;color:var(--text-3);text-decoration:none;padding:.25rem 0;border-bottom:1px solid transparent}
+.bar nav a:hover{color:var(--text)}
+.bar nav a[aria-current="true"]{color:var(--brand-400);border-bottom-color:var(--brand-400)}
+@media (max-width:52rem){.bar nav{display:none}}
+
+/* cards */
+.grid{display:grid;gap:.75rem}
+.g2{grid-template-columns:repeat(auto-fit,minmax(16rem,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(10rem,1fr))}
+.card{background:var(--card);border:1px solid var(--line-soft);border-radius:var(--r-lg);padding:1.25rem 1.3rem}
+.card p{font-size:1.02rem;line-height:1.55}
+.card .k{font-family:var(--font-mono);font-size:.7rem;color:var(--brand-400);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem;display:block}
+.figure{margin:2rem 0 0}
+.figcap{font-family:var(--font-mono);font-size:.72rem;color:var(--text-3);margin-top:.75rem}
+
+/* POUR */
+.pour .card{position:relative;overflow:hidden;min-height:9rem}
+.pour .letter{font-family:var(--font-display);font-size:3.4rem;font-weight:800;line-height:1;color:var(--brand-400);opacity:.95}
+.pour h3{font-size:1.05rem;margin:.6rem 0 0}
+.pour .x{position:absolute;top:1rem;right:1rem;font-family:var(--font-mono);font-size:.66rem;color:var(--danger);border:1px solid rgba(240,138,126,.35);border-radius:999px;padding:.1rem .5rem}
+
+/* insight */
+.insight{background:linear-gradient(180deg,rgba(218,229,134,.05),rgba(218,229,134,.015));border:1px solid var(--line);border-radius:var(--r-xl);padding:1.6rem 1.8rem;margin-top:2rem}
+.insight .eyebrow{margin-bottom:.6rem}
+.insight p{color:var(--text)}
+
+/* quote */
+blockquote{border-left:2px solid var(--brand-400);padding:.25rem 0 .25rem 1.25rem;margin:2rem 0;font-style:italic;font-size:1.3rem;color:var(--text);line-height:1.5}
+
+/* list */
+.ticks{list-style:none;margin-top:1rem}
+.ticks li{position:relative;padding-left:1.6rem;margin:.55rem 0}
+.ticks li::before{content:"";position:absolute;left:0;top:.62em;width:.55rem;height:.55rem;border-radius:50%;background:var(--brand-400);box-shadow:0 0 10px rgba(199,215,78,.6)}
+
+/* timeline */
+.timeline{list-style:none;position:relative;margin-top:2rem;padding-left:1.75rem}
+.timeline::before{content:"";position:absolute;left:.4rem;top:.5rem;bottom:.5rem;width:1px;background:linear-gradient(var(--line),var(--brand-700),var(--line))}
+.timeline li{position:relative;margin-bottom:1.1rem}
+.timeline li::before{content:"";position:absolute;left:-1.6rem;top:.5rem;width:.7rem;height:.7rem;border-radius:50%;background:var(--page);border:2px solid var(--text-3)}
+.timeline li.bad::before{border-color:var(--danger)}
+.timeline li.good::before{border-color:var(--brand-400);background:var(--brand-400);box-shadow:0 0 12px var(--brand-500)}
+.timeline .step{font-family:var(--font-mono);font-size:.7rem;color:var(--text-3);display:block;margin-bottom:.15rem}
+.timeline li.bad .step{color:var(--danger)}
+.timeline li.good .step{color:var(--brand-400)}
+.timeline p{font-size:1.05rem;color:var(--text-2)}
+
+/* compare */
+.compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:.75rem;margin-top:2rem}
+.compare .card h3{display:flex;align-items:center;gap:.6rem}
+.compare .card ul{list-style:none;margin-top:.75rem}
+.compare .card li{font-size:1.02rem;padding:.5rem 0;border-top:1px solid var(--line-soft);display:flex;gap:.6rem}
+.compare .card li:first-child{border-top:0}
+.compare .ic{font-family:var(--font-mono);font-size:.85rem;flex:none;width:1rem}
+.compare .widget .ic{color:var(--danger)}
+.compare .found{border-color:var(--line);background:var(--card-2)}
+.compare .found .ic{color:var(--brand-400)}
+
+/* pipeline */
+.pipe{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem;margin-top:2rem;counter-reset:p}
+.pipe li{counter-increment:p;background:var(--card);border:1px solid var(--line-soft);border-radius:var(--r-lg);padding:1rem;position:relative}
+.pipe li::before{content:counter(p,decimal-leading-zero);font-family:var(--font-mono);font-size:.7rem;color:var(--brand-400);display:block;margin-bottom:.5rem}
+.pipe li h3{font-size:1rem;margin-bottom:.3rem}
+.pipe li p{font-size:.95rem;line-height:1.45;color:var(--text-3)}
+.pipe li .tool{display:inline-block;margin-top:.6rem;font-family:var(--font-mono);font-size:.66rem;color:var(--text-2);border:1px solid var(--line-soft);border-radius:999px;padding:.1rem .5rem}
+.pipe li.loop{border-color:var(--line);background:var(--card-2)}
+
+/* typescale */
+.scale{margin-top:2rem;background:var(--card);border:1px solid var(--line-soft);border-radius:var(--r-xl);overflow:hidden}
+.scale .row{display:grid;grid-template-columns:7.5rem 1fr;align-items:center;gap:1rem;padding:1.25rem 1.4rem;border-top:1px solid var(--line-soft)}
+.scale .row:first-child{border-top:0}
+.scale .meta{font-family:var(--font-mono);font-size:.72rem;color:var(--text-3);line-height:1.5}
+.scale .meta b{display:block;font-size:1rem;color:var(--text);font-weight:500}
+.scale .spec{font-family:var(--font-sans);color:var(--text);line-height:1.4}
+.scale .row.live .meta b{color:var(--danger)}
+.scale .row.chosen{background:linear-gradient(90deg,rgba(218,229,134,.08),transparent)}
+.scale .row.chosen .meta b{color:var(--brand-400)}
+.scale .row .note{display:block;font-family:var(--font-mono);font-size:.68rem;color:var(--text-3);margin-top:.35rem}
+.bar-viz{height:6px;border-radius:999px;background:var(--line-soft);margin-top:.6rem;overflow:hidden}
+.bar-viz i{display:block;height:100%;border-radius:999px}
+
+/* status */
+.status{list-style:none;margin-top:2rem;border:1px solid var(--line-soft);border-radius:var(--r-xl);overflow:hidden}
+.status li{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;padding:.95rem 1.25rem;border-top:1px solid var(--line-soft);background:var(--card)}
+.status li:first-child{border-top:0}
+.status .t{font-family:var(--font-sans);font-size:.95rem;color:var(--text)}
+.status .s{font-family:var(--font-mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.04em;border-radius:999px;padding:.2rem .6rem;white-space:nowrap}
+.s.done{background:var(--brand-400);color:#111827}
+.s.prog{border:1px solid var(--brand-600);color:var(--brand-300)}
+.s.next{border:1px solid var(--line-soft);color:var(--text-3)}
+
+/* results */
+.chart{margin-top:2rem;background:var(--card);border:1px solid var(--line-soft);border-radius:var(--r-xl);padding:1.5rem 1.5rem 1.25rem}
+.chart .head{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.chart .head h3{margin:0}
+.chart .head span{font-family:var(--font-mono);font-size:.7rem;color:var(--text-3)}
+.page{padding:1rem 0;border-top:1px solid var(--line-soft)}
+.page:first-of-type{border-top:0}
+.page .top{display:flex;justify-content:space-between;gap:1rem;align-items:baseline;margin-bottom:.6rem;flex-wrap:wrap}
+.page .top b{font-family:var(--font-sans);font-weight:500;color:var(--text);font-size:.95rem}
+.page .top em{font-style:normal;font-family:var(--font-mono);font-size:.72rem;color:var(--brand-300)}
+.page .top em.warn{color:var(--danger)}
+.brow{display:grid;grid-template-columns:4.5rem 1fr 2.5rem;gap:.75rem;align-items:center;margin:.35rem 0}
+.brow .l{font-family:var(--font-mono);font-size:.7rem;color:var(--text-3)}
+.brow .v{font-family:var(--font-mono);font-size:.82rem;color:var(--text);text-align:right}
+.track{position:relative;height:10px;border-radius:999px;background:rgba(255,255,255,.05)}
+.track i{position:absolute;left:0;top:0;bottom:0;border-radius:999px}
+.track .live{background:var(--text-3)}
+.track .br{background:var(--brand-400);box-shadow:0 0 12px rgba(199,215,78,.35)}
+.track .mark{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--brand-200);border-radius:2px}
+.legend{display:flex;gap:1.25rem;flex-wrap:wrap;margin-top:1rem;font-family:var(--font-mono);font-size:.7rem;color:var(--text-3)}
+.legend span::before{content:"";display:inline-block;width:.6rem;height:.6rem;border-radius:2px;margin-right:.4rem;vertical-align:-1px;background:var(--c)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(10rem,1fr));gap:.75rem;margin-top:1rem}
+.stat{background:var(--card);border:1px solid var(--line-soft);border-radius:var(--r-lg);padding:1.2rem 1.25rem}
+.stat b{display:block;font-family:var(--font-display);font-weight:700;font-size:2.4rem;line-height:1;color:var(--text)}
+.stat b.hi{color:var(--brand-400)}
+.stat span{display:block;margin-top:.5rem;font-family:var(--font-sans);font-size:.85rem;color:var(--text-3);line-height:1.4}
+.drop{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:2rem}
+.drop .stat b{font-size:2rem}
+.s.warn{border:1px solid rgba(240,138,126,.5);color:var(--danger)}
+@media (max-width:40rem){.drop{grid-template-columns:1fr}}
+
+.next-cs{position:relative;display:block;margin-top:1.5rem;padding:1.4rem 3.5rem 1.4rem 1.4rem;background:var(--card-2);border:1px solid var(--line);border-radius:var(--r-xl);text-decoration:none;transition:border-color .2s}
+.next-cs:hover{border-color:var(--brand-600)}
+.next-cs .k{display:flex;align-items:center;font-family:var(--font-mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--brand-400);margin-bottom:.6rem}
+.next-cs h3{margin-bottom:.35rem}
+.next-cs p{font-size:1.02rem;color:var(--text-3)}
+.next-cs .arrow{position:absolute;right:1.25rem;top:50%;transform:translateY(-50%);width:2.2rem;height:2.2rem;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;color:var(--brand-400);font-family:var(--font-sans)}
+
+/* wcag table */
+.tablewrap{margin-top:1.75rem;border:1px solid var(--line-soft);border-radius:var(--r-xl);overflow-x:auto;background:var(--card)}
+.wcag{width:100%;border-collapse:collapse;font-family:var(--font-sans);font-size:.88rem;min-width:36rem}
+.wcag th,.wcag td{text-align:left;vertical-align:top;padding:.9rem 1rem;border-top:1px solid var(--line-soft)}
+.wcag thead th{border-top:0;font-family:var(--font-mono);font-size:.68rem;font-weight:400;text-transform:uppercase;letter-spacing:.06em;color:var(--text-3)}
+.wcag tbody th{color:var(--text);font-weight:500;width:11rem}
+.wcag td{color:var(--text-2)}
+.wcag .sc{display:block;font-family:var(--font-mono);font-size:.74rem;color:var(--brand-400);margin-bottom:.2rem}
+.wcag .own{font-family:var(--font-mono);font-size:.68rem;white-space:nowrap;border:1px solid var(--line);border-radius:999px;padding:.15rem .5rem;color:var(--text-2)}
+/* test plan */
+.plan{margin-top:1.75rem;background:var(--card-2);border:1px solid var(--line);border-radius:var(--r-xl);padding:1.4rem 1.5rem}
+.plan-head{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:.75rem}
+.plan-head h3{margin:0}
+.plan dl>div{display:grid;grid-template-columns:6rem 1fr;gap:1rem;padding:.8rem 0;border-top:1px solid var(--line-soft)}
+.plan dt{font-family:var(--font-mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--brand-400);padding-top:.2rem}
+.plan dd{font-size:1.02rem;color:var(--text-2)}
+.plan dd ol{padding-left:1.1rem}
+.plan dd li{margin:.2rem 0}
+@media (max-width:40rem){.plan dl>div{grid-template-columns:1fr;gap:.25rem}}
+
+footer{max-width:46rem;margin:0 auto;padding:2rem 1.5rem 3rem;display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:.72rem;color:var(--text-3);border-top:1px solid var(--line-soft)}
+
+@media (max-width:52rem){.pipe{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:40rem){
+  body{font-size:1.09rem}
+  .scale .row{grid-template-columns:1fr}
+  .wide{width:auto;margin-left:0;transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+
+<header class="bar">
+  <a class="brand" href="#top">mathew.sinclair</a>
+  <nav aria-label="Case study categories"><ul>
+    <li><a href="#context" data-cat>Context</a></li>
+    <li><a href="#challenge" data-cat>Challenge</a></li>
+    <li><a href="#approach" data-cat>Approach</a></li>
+    <li><a href="#results" data-cat>Results</a></li>
+    <li><a href="#outcome" data-cat>Outcome</a></li>
+  </ul></nav>
+  <span class="dot" aria-hidden="true"></span>
+</header>
+
+<main id="content">
+
+<div class="hero" id="top">
+  <p class="eyebrow">Activewear e-commerce · Accessibility</p>
+  <h1>Fixing the foundations, not buying a badge<span class="stop">.</span></h1>
+  <p class="lede">An activewear brand was facing legal action over its website's accessibility, and two overlay widgets hadn't fixed it. Eight months into my first in-house role, I picked up the work of bringing the site in line with WCAG 2.2 AA, alongside one developer.</p>
+  <div class="stats" style="margin-top:2rem" role="list" aria-label="Headline results">
+    <div class="stat" role="listitem"><b class="hi">9.29</b><span>Automated score out of 10 across 40 pages (Pope Tech)</span></div>
+    <div class="stat" role="listitem"><b class="hi">37 → 0</b><span>WAVE errors on the homepage and collection page combined</span></div>
+    <div class="stat" role="listitem"><b class="hi">1</b><span>Error left across the site, inside a third-party service</span></div>
+  </div>
+  <ul class="pills" aria-label="Project details">
+    <li class="pill"><b>Role ·</b> UX/UI Designer (junior)</li>
+    <li class="pill"><b>Standard ·</b> WCAG 2.2 AA</li>
+    <li class="pill"><b>Platform ·</b> Shopify</li>
+    <li class="pill"><b>Status ·</b> Pre-launch testing</li>
+  </ul>
+</div>
+
+<nav aria-label="Case study sections">
+  <ul class="overview">
+    <li><a class="cat" href="#context">01 Context</a><ul><li><a href="#problem">The problem</a></li><li><a href="#why">Why it mattered</a></li></ul></li>
+    <li><a class="cat" href="#challenge">02 Challenge</a><ul><li><a href="#widgets">The widget problem</a></li><li><a href="#ownership">Picking it up</a></li></ul></li>
+    <li><a class="cat" href="#approach">03 Approach</a><ul><li><a href="#process">The process</a></li><li><a href="#wcag">Key WCAG fixes</a></li><li><a href="#type">The typescale</a></li></ul></li>
+    <li><a class="cat" href="#results">04 Results</a><ul><li><a href="#numbers">Measuring progress</a></li><li><a href="#setback">The workflow hurdle</a></li></ul></li>
+    <li><a class="cat" href="#outcome">05 Outcome</a><ul><li><a href="#status">Where it stands</a></li><li><a href="#testing">Testing next</a></li><li><a href="#learnings">Learnings</a></li></ul></li>
+  </ul>
+</nav>
+
+<!-- CONTEXT -->
+<div id="context" data-group></div>
+<section id="problem" aria-labelledby="h-problem">
+  <p class="eyebrow"><span class="num">Context ·</span> The problem</p>
+  <h2 id="h-problem">A fast-growing brand with no accessibility standards.</h2>
+  <p>The site fell short on all four of WCAG's core principles, and accessibility hadn't been built into how the business worked.</p>
+  <div class="grid g4 pour figure" role="list" aria-label="WCAG's four principles, all failing on the live site">
+    <div class="card" role="listitem"><span class="x">Failing</span><div class="letter" aria-hidden="true">P</div><h3>Perceivable</h3></div>
+    <div class="card" role="listitem"><span class="x">Failing</span><div class="letter" aria-hidden="true">O</div><h3>Operable</h3></div>
+    <div class="card" role="listitem"><span class="x">Failing</span><div class="letter" aria-hidden="true">U</div><h3>Understandable</h3></div>
+    <div class="card" role="listitem"><span class="x">Failing</span><div class="letter" aria-hidden="true">R</div><h3>Robust</h3></div>
+  </div>
+  <h3 style="margin-top:2.25rem">Goals</h3>
+  <div class="grid g2" style="margin-top:1rem">
+    <div class="card"><span class="k">Standard</span><p>Meet WCAG 2.2 AA.</p></div>
+    <div class="card"><span class="k">Approach</span><p>Fix issues in the code, not with an overlay.</p></div>
+    <div class="card"><span class="k">Sign-off</span><p>Leadership approval, then a vendor re-audit for certification.</p></div>
+    <div class="card"><span class="k">Compliance</span><p>Publish an Accessibility Statement, as UK law requires.</p></div>
+  </div>
+</section>
+
+<section id="why" aria-labelledby="h-why">
+  <p class="eyebrow"><span class="num">Context ·</span> Background</p>
+  <h2 id="h-why">Why this one mattered to me.</h2>
+  <p>Accessibility is personal to me. My brother has cerebral palsy and is a full-time wheelchair user.</p>
+  <p>My early pitches to prioritise it didn't land, so I stopped pushing for fixes and started explaining why they mattered:</p>
+  <div class="grid g2" style="margin-top:1.25rem">
+    <div class="card"><span class="k">01 · Legal</span><p>It's a legal requirement, not a nice-to-have.</p></div>
+    <div class="card"><span class="k">02 · Brand</span><p>The brand is built on inclusion, so it should practise what it preaches.</p></div>
+  </div>
+</section>
+
+<!-- CHALLENGE -->
+<div id="challenge" data-group></div>
+<section id="widgets" aria-labelledby="h-widgets">
+  <p class="eyebrow"><span class="num">Challenge ·</span> The problem with widgets</p>
+  <h2 id="h-widgets">Two overlays, same outcome.</h2>
+  <ol class="timeline" aria-label="How the project reached me">
+    <li class="bad"><span class="step">01 · First widget</span><p>After outside feedback, the business installed an overlay sold as instant compliance.</p></li>
+    <li><span class="step">02 · My flag</span><p>I raised that it wouldn't fix the underlying issues and could make us more of a target.</p></li>
+    <li class="bad"><span class="step">03 · Legal action</span><p>The business later faced legal action.</p></li>
+    <li class="bad"><span class="step">04 · Second widget</span><p>Without the website team, a second widget was bought, using essentially the same code.</p></li>
+    <li><span class="step">05 · Vendor confirms</span><p>The vendor confirmed it had to be fixed at a foundational level.</p></li>
+    <li class="good"><span class="step">06 · Brought in</span><p>I was brought onto the project.</p></li>
+  </ol>
+
+  <div class="compare" role="group" aria-label="Overlay widget compared with foundational fixes">
+    <div class="card widget">
+      <h3><span class="tag ghost">Overlay widget</span></h3>
+      <ul>
+        <li><span class="ic" aria-hidden="true">✕</span><span>Features sell the product, but aren't WCAG requirements.</span></li>
+        <li><span class="ic" aria-hidden="true">✕</span><span>Can clash with screen readers and other assistive tech.</span></li>
+        <li><span class="ic" aria-hidden="true">✕</span><span>Signals awareness without the work behind it.</span></li>
+      </ul>
+    </div>
+    <div class="card found">
+      <h3><span class="tag">Foundational fixes</span></h3>
+      <ul>
+        <li><span class="ic" aria-hidden="true">✓</span><span>Issues fixed in the code itself.</span></li>
+        <li><span class="ic" aria-hidden="true">✓</span><span>Works with assistive tech, not on top of it.</span></li>
+        <li><span class="ic" aria-hidden="true">✓</span><span>Built into the design system, starting with type.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="insight">
+    <p class="eyebrow">Backing it up</p>
+    <p>In 2025, 1,416 of 5,114 US digital accessibility lawsuits were against sites that already had a widget. Our own fixes reduce the risk. An untested widget can add to it.</p>
+    <p class="figcap" style="margin-top:.75rem">Source: UsableNet 2025 year-end report. Raised as a risk, not a legal judgement.</p>
+  </div>
+  <p style="margin-top:1.5rem">The widget now sits in the background and only opens from accessibility links. I've asked the vendor to confirm it doesn't change the page until someone opens it.</p>
+  <blockquote>Involving the website team early would have saved the business time and money.</blockquote>
+</section>
+
+<section id="ownership" aria-labelledby="h-own">
+  <p class="eyebrow"><span class="num">Challenge ·</span> Picking it up</p>
+  <h2 id="h-own">No clear owner, so I picked it up.</h2>
+  <p>Leadership had signed a managed compliance process with a vendor without involving the website team. The brief was light, so I worked out the scope, timelines and legal context, then started with what I could control.</p>
+  <div class="grid g2" style="margin-top:1.5rem">
+    <div class="card"><span class="k">People</span><p>Brought in a developer with extensive accessibility experience.</p></div>
+    <div class="card"><span class="k">Design checks</span><p>Created a generative Figma plugin that scans designs for accessibility issues, the way WAVE and Pope Tech scan live pages.</p></div>
+    <div class="card"><span class="k">Live checks</span><p>Set up WAVE in Chrome to test pages.</p></div>
+    <div class="card"><span class="k">Baseline</span><p>Recreated live pages in Figma and scored each one.</p></div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<div id="approach" data-group></div>
+<section id="process" aria-labelledby="h-proc">
+  <p class="eyebrow"><span class="num">Approach ·</span> The process</p>
+  <h2 id="h-proc">Score, rebuild, test, repeat.</h2>
+  <p>Every page was measured before and after, covering the homepage, collection pages, product page and cart.</p>
+  <ol class="pipe">
+    <li><h3>Import</h3><p>Pull the live page's HTML into Figma.</p></li>
+    <li><h3>Score</h3><p>Scan it with the Figma plugin.</p><span class="tool">Figma plugin</span></li>
+    <li><h3>Redesign</h3><p>Remake the screen to fix what it found.</p></li>
+    <li><h3>Build</h3><p>The developer builds it on a branch.</p><span class="tool">Shopify branch</span></li>
+    <li class="loop"><h3>Test</h3><p>Check the branch against live.</p><span class="tool">WAVE · Pope Tech</span></li>
+  </ol>
+
+  <h3 style="margin-top:2.5rem">Who did what</h3>
+  <div class="grid g2" style="margin-top:1rem">
+    <div class="card"><span class="k">Me · Design</span><p>Page redesigns, the typescale, contrast decisions, and scoring with the Figma plugin and WAVE.</p></div>
+    <div class="card"><span class="k">Developer · Build</span><p>Building on the branch, plus all the screen reader and keyboard navigation work.</p></div>
+    <div class="card"><span class="k">Together</span><p>Manual testing of the branch.</p></div>
+    <div class="card"><span class="k">Product team</span><p>Clearer image descriptions on new uploads, which I asked them to add.</p></div>
+  </div>
+</section>
+
+<section id="wcag" aria-labelledby="h-wcag">
+  <p class="eyebrow"><span class="num">Approach ·</span> Key fixes</p>
+  <h2 id="h-wcag">The main fixes, mapped to WCAG.</h2>
+  <p>Not a full audit, just the issues this case study covers, the criterion each one falls under, and who fixed it.</p>
+  <div class="tablewrap">
+  <table class="wcag">
+    <caption class="sr-only">Key accessibility fixes mapped to WCAG success criteria</caption>
+    <thead><tr><th scope="col">Criterion</th><th scope="col">Issue</th><th scope="col">Fix</th><th scope="col">Owner</th></tr></thead>
+    <tbody>
+      <tr><th scope="row"><span class="sc">1.4.3</span>Contrast (Minimum)</th><td>Low-contrast text, including breadcrumbs</td><td>Cleared on homepage and collection page. Product page in progress.</td><td><span class="own">Design</span></td></tr>
+      <tr><th scope="row"><span class="sc">1.4.4</span>Resize Text</th><td>Text as small as 9px, in fixed pixels</td><td>New typescale, 14px base, in rem and em units</td><td><span class="own">Design</span></td></tr>
+      <tr><th scope="row"><span class="sc">1.3.1</span>Info and Relationships</th><td>Six orphaned form labels on the product page</td><td>Being fixed with the contrast changes</td><td><span class="own">Design + Dev</span></td></tr>
+      <tr><th scope="row"><span class="sc">2.1.1 · 2.4.3</span>Keyboard, Focus Order</th><td>Menus and pop-ups losing the user's place</td><td>They now open, close and return users to the right place</td><td><span class="own">Dev</span></td></tr>
+      <tr><th scope="row"><span class="sc">1.1.1</span>Non-text Content</th><td>Product images unclear to screen reader users</td><td>Descriptions covering garment, colour, fit and view</td><td><span class="own">Dev + Product</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="type" aria-labelledby="h-type">
+  <p class="eyebrow"><span class="num">Approach ·</span> Key decision</p>
+  <h2 id="h-type">The typescale: accessible, but still on brand.</h2>
+  <p>Small text was behind 59% of the remaining Pope Tech alerts, and the live site went as small as 9px. I pitched a 16px base. Leadership wanted to keep the brand's small type, so I settled on 14px.</p>
+  <div class="scale" role="group" aria-label="Typescale comparison">
+    <div class="row live">
+      <div class="meta"><b>9px</b>Live site, smallest</div>
+      <div><span class="spec" style="font-size:9px">Free returns on all orders. Ready to wear, built to move.</span>
+        <div class="bar-viz" aria-hidden="true"><i style="width:56%;background:var(--danger)"></i></div></div>
+    </div>
+    <div class="row chosen">
+      <div class="meta"><b>14px</b>Chosen base</div>
+      <div><span class="spec" style="font-size:14px">Free returns on all orders. Ready to wear, built to move.</span>
+        <div class="bar-viz" aria-hidden="true"><i style="width:87.5%;background:var(--brand-400)"></i></div></div>
+    </div>
+    <div class="row">
+      <div class="meta"><b>16px</b>My first pitch</div>
+      <div><span class="spec" style="font-size:16px">Free returns on all orders. Ready to wear, built to move.</span>
+        <div class="bar-viz" aria-hidden="true"><i style="width:100%;background:var(--text-3)"></i></div></div>
+    </div>
+  </div>
+  <p class="figcap">Sample copy is illustrative.</p>
+  <div class="insight">
+    <p class="eyebrow">Why 14px still works</p>
+    <p>WCAG doesn't set a minimum font size. It requires that text can be resized to 200% without losing content (1.4.4). So as well as raising every size, I moved the system to rem and em units, so text scales with browser zoom and people's own settings.</p>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<div id="results" data-group></div>
+<section id="numbers" aria-labelledby="h-num">
+  <p class="eyebrow"><span class="num">Results ·</span> Measuring progress</p>
+  <h2 id="h-num">Two templates above nine, one still to fix.</h2>
+  <figure class="chart" aria-labelledby="cap-wave">
+    <div class="head"><h3 id="cap-wave">WAVE score: live site vs accessible branch</h3><span>AIM score out of 10 · live Oct 2026 · branch Nov 2026</span></div>
+    <div class="page">
+      <div class="top"><b>Homepage</b><em>17 → 0 errors</em></div>
+      <div class="brow"><span class="l">Live</span><div class="track" aria-hidden="true"><i class="live" style="width:58%"></i></div><span class="v">5.8</span></div>
+      <div class="brow"><span class="l">Branch</span><div class="track" aria-hidden="true"><i class="br" style="width:91%"></i></div><span class="v">9.1</span></div>
+    </div>
+    <div class="page">
+      <div class="top"><b>Collection page</b><em>20 → 0 errors</em></div>
+      <div class="brow"><span class="l">Live</span><div class="track" aria-hidden="true"><i class="live" style="width:59%"></i></div><span class="v">5.9</span></div>
+      <div class="brow"><span class="l">Branch</span><div class="track" aria-hidden="true"><i class="br" style="width:93%"></i></div><span class="v">9.3</span></div>
+    </div>
+    <div class="page">
+      <div class="top"><b>Product page</b><em class="warn">0 errors · around 19 contrast issues</em></div>
+      <div class="brow"><span class="l">Live</span><div class="track" aria-hidden="true"><i class="live" style="width:55%"></i></div><span class="v">5.5</span></div>
+      <div class="brow"><span class="l">Branch</span><div class="track" aria-hidden="true"><i class="br" style="width:64%"></i><span class="mark" style="left:86%"></span></div><span class="v">6.4</span></div>
+    </div>
+    <div class="legend"><span style="--c:var(--text-3)">Live site</span><span style="--c:var(--brand-400)">Accessible branch</span><span style="--c:var(--brand-200)">Product page before its redesign (8.6)</span></div>
+  </figure>
+
+  <h3 style="margin-top:2.5rem">Pope Tech, across the branch</h3>
+  <div class="stats" role="list" aria-label="Pope Tech results, 40 pages scanned, 10 November 2026">
+    <div class="stat" role="listitem"><b class="hi">9.29</b><span>Automated score out of 10</span></div>
+    <div class="stat" role="listitem"><b>0.03</b><span>Errors per page (1 in total)</span></div>
+    <div class="stat" role="listitem"><b>605</b><span>Alerts to review</span></div>
+    <div class="stat" role="listitem"><b>59%</b><span>Of alerts are very small text</span></div>
+  </div>
+  <p class="figcap">40 pages scanned, 10 November 2026. The one error is inside a third-party order-tracking service.</p>
+</section>
+
+<section id="setback" aria-labelledby="h-set">
+  <p class="eyebrow"><span class="num">Results ·</span> The hurdle</p>
+  <h2 id="h-set">Making accessibility part of the workflow.</h2>
+  <p>The hardest part wasn't technical. Accessibility had been agreed as a priority, but there was no shared check in the design process. When the product page was redesigned outside the accessibility work, fixes we'd already made came undone.</p>
+  <div class="drop" role="list" aria-label="Product page score change">
+    <div class="stat" role="listitem"><b class="hi">8.6</b><span>Product page on the branch, before the redesign</span></div>
+    <div class="stat" role="listitem"><b style="color:var(--danger)">6.4</b><span>After the redesign</span></div>
+    <div class="stat" role="listitem"><b>7</b><span>Repeated styles behind around 19 contrast issues</span></div>
+  </div>
+  <p style="margin-top:2rem">The gap was in the process, not any one piece of work. At the Go/No Go meeting I suggested a simple check:</p>
+  <ol class="pipe" style="grid-template-columns:repeat(3,1fr)">
+    <li><h3>Design stage</h3><p>Figma plugin check before handover.</p></li>
+    <li><h3>Before merge</h3><p>WAVE or Pope Tech before anything goes onto the branch or live.</p></li>
+    <li class="loop"><h3>From tokens</h3><p>Contrast and type come from design system tokens, not one-off styles.</p></li>
+  </ol>
+  <p class="figcap">Design and dev are reviewing the product page contrast changes together, since they mean visible colour changes.</p>
+
+  <a class="next-cs" href="#" aria-label="Design system case study, coming soon">
+    <span class="k">Related case study <span class="tag" style="margin-left:.5rem">Coming soon</span></span>
+    <h3>Building an accessibility-first design system</h3>
+    <p>Turning these checks into a design system built with accessibility first, to standardise how the brand designs.</p>
+    <span class="arrow" aria-hidden="true">↗</span>
+  </a>
+</section>
+
+<!-- OUTCOME -->
+<div id="outcome" data-group></div>
+<section id="status" aria-labelledby="h-status">
+  <p class="eyebrow"><span class="num">Outcome ·</span> Where it stands</p>
+  <h2 id="h-status">On track, with a few things left.</h2>
+  <ul class="status" aria-label="Project progress">
+    <li><span class="t">Homepage, collection page, product page and cart redesigned</span><span class="s done">Done</span></li>
+    <li><span class="t">Screen reader and keyboard improvements (developer)</span><span class="s done">Done</span></li>
+    <li><span class="t">Accessible typescale in the design system</span><span class="s done">Done</span></li>
+    <li><span class="t">Pope Tech monitoring across the branch</span><span class="s done">Done</span></li>
+    <li><span class="t">Product page contrast and form labels</span><span class="s warn">Priority</span></li>
+    <li><span class="t">Typescale rolled into the live theme</span><span class="s prog">In progress</span></li>
+    <li><span class="t">Manual testing sprint</span><span class="s next">Next</span></li>
+    <li><span class="t">Vendor re-audit and Accessibility Statement</span><span class="s next">Next</span></li>
+  </ul>
+</section>
+
+<section id="testing" aria-labelledby="h-test">
+  <p class="eyebrow"><span class="num">Outcome ·</span> Testing next</p>
+  <h2 id="h-test">Testing with people, not just tools.</h2>
+  <p>The brand doesn't run user testing yet, despite my pitches to bring in UserTesting. So for next week's manual testing sprint, I'm running a simple version in the office.</p>
+  <div class="plan">
+    <div class="plan-head"><h3>Office usability check</h3><span class="tag ghost">Planned</span></div>
+    <dl>
+      <div><dt>Who</dt><dd>Staff from across the business, outside the website team. Everyone takes the same test.</dd></div>
+      <div><dt>Focus</dt><dd>Readability and perceivability.</dd></div>
+      <div><dt>Set-up</dt><dd>Their usual device, then one task repeated at 200% browser zoom.</dd></div>
+      <div><dt>Tasks</dt><dd><ol>
+        <li>Find a product and read its details and price.</li>
+        <li>Use the breadcrumbs to work out where you are.</li>
+        <li>Add an item to the cart and read the delivery information.</li>
+        <li>Repeat one task at 200% zoom.</li>
+      </ol></dd></div>
+      <div><dt>Capture</dt><dd>Whether each task was completed, where people hesitated, and what they said.</dd></div>
+    </dl>
+  </div>
+  <p class="figcap">Colleagues aren't a substitute for testing with disabled users, but it adds a human check alongside the automated tools.</p>
+</section>
+
+<section id="learnings" aria-labelledby="h-learn">
+  <p class="eyebrow"><span class="num">Outcome ·</span> Learnings</p>
+  <h2 id="h-learn">What I'm taking from it.</h2>
+  <div class="grid g2" style="margin-top:1.5rem">
+    <div class="card"><span class="k">Involve the builders early</span><p>Decisions made without the website team cost time and money.</p></div>
+    <div class="card"><span class="k">Explain the why first</span><p>Framing it around legal risk and the brand's values got people listening.</p></div>
+    <div class="card"><span class="k">A priority needs a process</span><p>Agreeing accessibility comes first wasn't enough without a shared check.</p></div>
+    <div class="card"><span class="k">Tools only go so far</span><p>Scores made progress visible, but automated tools only catch part of WCAG.</p></div>
+    <div class="card"><span class="k">Compromise, don't give up</span><p>Losing the 16px pitch didn't mean losing accessibility.</p></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <span>© 2026 Mathew Sinclair</span>
+  <span>Made in the dark</span>
+</footer>
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('[data-cat]'));
+  var groups=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
+  function update(){
+    var y=window.scrollY+window.innerHeight*0.35, active=-1;
+    groups.forEach(function(g,i){if(g&&g.getBoundingClientRect().top+window.scrollY<=y)active=i});
+    links.forEach(function(a,i){if(i===active)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current')});
+  }
+  window.addEventListener('scroll',update,{passive:true});update();
+})();
+</script>
+</body>
+</html>

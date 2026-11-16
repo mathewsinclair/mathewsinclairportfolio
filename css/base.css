@@ -1,0 +1,270 @@
+/* ==========================================================================
+   Base — reset, landmarks, focus, typography defaults.
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  font-size: 100%; /* respects user's browser font-size setting, required for 200% zoom */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+}
+
+img, picture, svg {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+/* Underline links in running text so colour is never the only signal */
+.prose a,
+.site-footer a,
+.case-nav a,
+.row-list a {
+  text-decoration: underline;
+  text-decoration-thickness: from-font;
+  text-underline-offset: 0.15em;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  margin: 0;
+}
+
+p { margin: 0; }
+
+ul, ol { margin: 0; padding: 0; }
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* ---- Visible, high-contrast focus ring everywhere (WCAG 2.2 2.4.11) ---- */
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Remove the default-but-inconsistent UA outline only when :focus-visible is supported and not matched */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ---- Skip link ---- */
+.skip-link {
+  position: absolute;
+  left: var(--space-3);
+  top: -3rem;
+  z-index: 1000;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+  transition: top var(--duration-fast) var(--ease-standard);
+}
+.skip-link:focus-visible {
+  top: var(--space-3);
+  outline-color: var(--color-paper);
+}
+
+/* ---- Layout helpers ---- */
+.wrap {
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding-inline: var(--space-5);
+}
+
+.wrap-wide {
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: var(--space-5);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---- Site header / nav ---- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: color-mix(in srgb, var(--color-paper) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-line);
+}
+.site-header__bar {
+  max-width: 76rem;
+  min-height: var(--header-h);
+  margin-inline: auto;
+  padding-inline: var(--space-5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+.site-logo {
+  font-weight: 700;
+  font-size: var(--text-lg);
+  text-decoration: none;
+  letter-spacing: var(--tracking-tight);
+}
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+.site-nav__list {
+  display: flex;
+  list-style: none;
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+}
+.site-nav__list a {
+  text-decoration: none;
+  font-weight: 500;
+  padding: var(--space-2) 0;
+}
+.site-nav__list a[aria-current="page"] {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.3em;
+}
+
+.menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  min-width: var(--target-min);
+  min-height: var(--target-min);
+  background: transparent;
+  color: var(--color-ink);
+  border: 1px solid var(--color-line-strong); /* interactive control: needs ≥3:1 per WCAG 1.4.11 */
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+.menu-toggle svg { pointer-events: none; }
+
+@media (max-width: 640px) {
+  .menu-toggle { display: flex; }
+  .site-nav__list {
+    position: fixed;
+    inset: 0 0 0 auto;
+    width: min(20rem, 85vw);
+    height: 100vh;
+    flex-direction: column;
+    gap: var(--space-2);
+    background: var(--color-paper);
+    border-left: 1px solid var(--color-line);
+    padding: var(--space-9) var(--space-5) var(--space-5);
+    transform: translateX(100%);
+    transition: transform var(--duration-normal) var(--ease-standard);
+    overflow-y: auto;
+  }
+  .site-nav__list[data-open="true"] {
+    transform: translateX(0);
+  }
+  .site-nav__list a {
+    padding: var(--space-3) var(--space-2);
+    display: block;
+    font-size: var(--text-xl);
+  }
+  .nav-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.4);
+    z-index: 39;
+  }
+  .nav-backdrop[data-open="true"] { display: block; }
+}
+
+/* ---- Site footer ---- */
+.site-footer {
+  border-top: 1px solid var(--color-line);
+  margin-top: var(--space-11);
+  padding: var(--space-7) var(--space-5);
+}
+.site-footer__inner {
+  max-width: 76rem;
+  margin-inline: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--text-sm);
+  color: var(--color-ink-soft);
+}
+.site-footer__links {
+  display: flex;
+  gap: var(--space-5);
+  list-style: none;
+  flex-wrap: wrap;
+}
+
+/* ---- Prose (case study body copy) ---- */
+.prose {
+  max-width: var(--measure);
+}
+.prose p + p { margin-top: var(--space-4); }
+.prose p {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  color: var(--color-ink-soft);
+}
+.prose strong { color: var(--color-ink); font-weight: 700; }
+.prose em { font-style: italic; }
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
+.hr {
+  border: none;
+  border-top: 1px solid var(--color-line);
+  margin: var(--space-10) 0;
+}
+
+/* ---- Reduced motion: collapse everything to instant ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

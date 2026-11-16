@@ -1,0 +1,165 @@
+/* ==========================================================================
+   Shared components used outside the case-study template: home hero,
+   the /work row list, pills, and the simple buttons/links used site-wide.
+   ========================================================================== */
+
+/* ---- Home hero ---- */
+.home-hero {
+  padding-block: var(--space-10) var(--space-9);
+}
+.home-hero h1 {
+  font-size: var(--text-5xl);
+  line-height: var(--leading-tight);
+  margin-top: var(--space-4);
+}
+.home-hero__dek {
+  font-family: var(--font-serif);
+  font-size: var(--text-xl);
+  line-height: var(--leading-relaxed);
+  color: var(--color-ink-soft);
+  margin-top: var(--space-5);
+  max-width: var(--measure-narrow);
+}
+
+/* ---- Pills (meta chips: role, platform, tools…) ---- */
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.pill {
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+  font-weight: 500;
+  color: var(--color-ink-soft);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+  padding: var(--space-2) var(--space-4);
+  line-height: 1.4;
+}
+/* Accent used as a fill only — never as text-on-white */
+.pill--accent {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-accent-ink);
+  font-weight: 600;
+}
+
+/* ---- Buttons / links ---- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-line-strong);
+  min-height: var(--target-min);
+  color: var(--color-ink);
+  background: transparent;
+}
+.btn--fill {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+.btn:hover { text-decoration: underline; }
+
+.text-link {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* ---- /work row list ---- */
+.row-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--color-line);
+}
+.row-list__item {
+  border-bottom: 1px solid var(--color-line);
+}
+.row-list__link {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: var(--space-5);
+  align-items: baseline;
+  padding: var(--space-6) 0;
+  text-decoration: none;
+}
+.row-list__link:hover .row-list__title,
+.row-list__link:focus-visible .row-list__title {
+  text-decoration: underline;
+}
+.row-list__main {
+  min-width: 0;
+}
+.row-list__title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+}
+.row-list__summary {
+  font-family: var(--font-serif);
+  font-size: var(--text-base);
+  color: var(--color-ink-soft);
+  margin-top: var(--space-2);
+  max-width: 55ch;
+}
+.row-list__role,
+.row-list__year {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--color-ink-soft);
+  white-space: nowrap;
+  text-align: right;
+}
+.row-list__item--disabled {
+  padding: var(--space-6) 0;
+  color: var(--color-ink-faint);
+}
+.row-list__item--disabled .row-list__status {
+  font-size: var(--text-meta);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+  padding: var(--space-1) var(--space-3);
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .row-list__link {
+    grid-template-columns: 1fr;
+    gap: var(--space-1);
+  }
+  .row-list__role, .row-list__year { text-align: left; }
+  .row-list__item--disabled { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: baseline; justify-content: space-between; }
+}
+
+/* ---- About photo strip (static, no autoplay — motion must be user-initiated) ---- */
+.photo-strip {
+  display: flex;
+  gap: var(--space-4);
+  overflow-x: auto;
+  padding-bottom: var(--space-2);
+  margin: var(--space-8) calc(-1 * var(--space-5));
+  padding-inline: var(--space-5);
+  scrollbar-gutter: stable;
+}
+.photo-strip img {
+  width: 11rem;
+  height: 14rem;
+  object-fit: cover;
+  border: 1px solid var(--color-line);
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+}
